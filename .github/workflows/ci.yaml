@@ -1,0 +1,60 @@
+name: Build and Push Frontend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile'
+      - 'nginx.conf'
+      - 'vite.config.js'
+      - 'index.html'
+      - '.github/workflows/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: ACR Login
+        run: |
+          TOKEN=$(az acr login --name acrievalxprod --expose-token --query accessToken -o tsv)
+          docker login ${{ secrets.ACR_LOGIN_SERVER }} -u 00000000-0000-0000-0000-000000000000 --password-stdin <<< "$TOKEN"
+
+      - name: Build and push image
+        run: |
+          TAG=$(echo $GITHUB_SHA | head -c 7)
+          IMAGE=${{ secrets.ACR_LOGIN_SERVER }}/ievalx-frontend:$TAG
+          docker build -t $IMAGE .
+
+          # Trivy scan — fail on CRITICAL vulnerabilities
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --exit-code 1 --severity CRITICAL --no-progress $IMAGE
+
+          docker push $IMAGE
+
+      - name: Update image tag in infra repo
+        run: |
+          TAG=$(echo $GITHUB_SHA | head -c 7)
+          git clone https://x-access-token:${{ secrets.INFRA_REPO_TOKEN }}@github.com/ievalx-tech/ievalx-infra.git
+          cd ievalx-infra
+          sed -i "/^frontend:/,/^[a-z]/ s|tag: \".*\"|tag: \"$TAG\"|" k8s/ievalx-chart/values.yaml
+          git config user.email "ci@ievalx.com"
+          git config user.name "iEvalX CI"
+          git add k8s/ievalx-chart/values.yaml
+          git diff --cached --quiet || git commit -m "chore: update frontend image tag to $TAG"
+          git push
