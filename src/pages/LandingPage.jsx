@@ -103,7 +103,7 @@ const LandingPage = () => {
         ]},
         { head: "Employers", links: [
           { label: "Post a job",        onClick: () => navigate("/auth?view=register-company") },
-          { label: "Run a campus drive", onClick: () => navigate("/auth?view=register-company") },
+          { label: "Run a campus drive", onClick: () => navigate("/services/campus-drive") },
         ]},
       ],
       featured: {

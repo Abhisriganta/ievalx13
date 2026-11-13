@@ -246,4 +246,49 @@ export const SERVICE_PAGES = {
       "Most hiring tools hand you a result and a flag. iEvalX hands your compliance team the evidence, the deadlines and the sign-offs to stand behind every decision.",
     closing: { title: "Hire fairly, and prove it.", desc: "See how Compliance and Audit fits your hiring team." },
   },
+
+  /* ── Campus drives (Jobs menu → Employers → "Run a campus drive") ───── */
+  "campus-drive": {
+    eyebrow: "Campus Drives",
+    title: "Run a Campus Drive Without the Chaos.",
+    subtitle:
+      "Interview a whole batch of students with AI rounds built for freshers. Short sessions, student-level questions, and a ranked list at the end.",
+    cta: { label: "Register My Company", action: "registerCompany" },
+    whatItIs:
+      "Campus mode turns any AI interview round into a placement-drive format. Students join from their own dashboard, every session is proctored, and you review scores instead of running hundreds of first-round calls.",
+    steps: [
+      { title: "Post the role",        desc: "Create the job and add the students or applicants for the drive." },
+      { title: "Switch on campus mode", desc: "Turn on Campus Placement Drive for the AI interview round." },
+      { title: "Students take it",     desc: "The round appears in each student's Campus Drive tab, ready to start." },
+      { title: "Shortlist the best",   desc: "Review scored, ranked results and move the top students forward." },
+    ],
+    blocks: [
+      {
+        type: "cards",
+        eyebrow: "Built for Freshers",
+        title: "A Format That's Fair to Students",
+        items: [
+          { title: "25-minute sessions",     desc: "Short enough for a full batch in a single day." },
+          { title: "Student-level questions", desc: "Asked at the level of a final-year student, not a senior hire." },
+          { title: "Fresher difficulty",      desc: "Difficulty stays locked to Fresher for every student." },
+          { title: "Easy rescheduling",       desc: "Students can move their slot without emailing your team." },
+        ],
+      },
+      {
+        type: "callout",
+        eyebrow: "Every Session Proctored",
+        title: "37 Checks, Even at Scale",
+        text: "Identity, surroundings, browser and device are checked in every campus session, so a large batch gets the same integrity as a single hire.",
+      },
+    ],
+    benefits: [
+      "Interview a full batch without booking interviewers",
+      "Questions pitched at the fresher level",
+      "Proctored sessions with a verified score for each student",
+      "A ranked shortlist instead of a pile of CVs",
+    ],
+    different:
+      "Most campus drives mean days of first-round calls and spreadsheets. On iEvalX, students take a fresher-level AI interview from anywhere, and you start with a ranked shortlist.",
+    closing: { title: "Your next batch of hires is on campus.", desc: "Register your company and run your first drive." },
+  },
 };

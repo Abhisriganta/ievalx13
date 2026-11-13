@@ -12,7 +12,7 @@ import {
 } from '@mui/icons-material';
 import { useSnackbar } from 'notistack';
 import rankedResultsService from '../../../services/api/employer/rankedResultsService';
-import applicantService from '../../../services/api/employer/ApplicantService';
+import applicantService from '../../../services/api/employer/applicantService';
 import jobseekerService from '../../../services/api/jobseeker/jobseekerService';
 import { interviewAPI } from '../../../services/api/employer/candidateService';
 
