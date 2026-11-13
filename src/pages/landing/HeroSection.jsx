@@ -712,15 +712,27 @@ export default function HeroSection() {
                   <CardText>Post a JD, get matched CVs instantly, ranked by Quick Interview score, location and salary.</CardText>
                 </HeroInfoCard>
                 <HeroInfoCard show={isCompany} glow sx={{
-                  width: 270, p: "20px", left: { md: "-20%", lg: "-24%", xl: "-50%" }, top: { md: "40%", xl: "38%" },
+                  width: 240, p: "16px 18px", left: { md: "-20%", lg: "-24%", xl: "-50%" }, top: { md: "40%", xl: "38%" },
                 }}>
-                  <Box aria-hidden="true" sx={{ fontSize: 32, lineHeight: 1, filter: "drop-shadow(0 0 12px rgba(63,209,122,0.8))" }}>🛡️</Box>
-                  <Typography sx={{ fontFamily: FONT, fontSize: 22, fontWeight: 800, color: C.ink, mt: 0.75 }}>IAEM Audited</Typography>
+                                    <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
+                    <Box component="svg" viewBox="0 0 44 50" aria-hidden="true" sx={{
+                      width: 30, height: 34, flexShrink: 0,
+                      filter: "drop-shadow(0 0 10px rgba(63,209,122,0.55))",
+                    }}>
+                      <path d="M22 2 L40 9 V24 C40 36 32 44 22 48 C12 44 4 36 4 24 V9 Z"
+                        fill={C.sageSoft} stroke="#3FD17A" strokeWidth="2.5" />
+                      <path d="M14 25 L20 31 L31 19" fill="none" stroke={C.sageDark}
+                        strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </Box>
+                    <Typography sx={{ fontFamily: FONT, fontSize: 19, fontWeight: 800, color: C.ink, lineHeight: 1.2 }}>
+                      IAEM Audited
+                    </Typography>
+                  </Stack>
                   <CardText>Every interviewer reviewed before you shortlist.</CardText>
                   <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, mt: 1.25 }}>
                     {["35+ proctoring checks", "Panel fraud detection", "Interviewer score report"].map(t => (
                       <Box component="li" key={t} sx={{
-                        display: "flex", alignItems: "center", gap: 1, py: 0.625,
+                        display: "flex", alignItems: "center", gap: 1, py: 0.5,
                         borderTop: `1px solid ${C.line}`,
                         fontFamily: FONT, fontSize: 13, color: C.ink,
                       }}>
