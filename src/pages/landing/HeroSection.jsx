@@ -7,12 +7,10 @@ import { FadeUp } from "./primitives";
 import { HERO_PERSON } from "./data";
 import heroPersonArt from "../../assets/images/Herosection.png";
 import JobSearchBar from "./JobSearchBar";
+import useApplyNavigation from "@/hooks/useApplyNavigation";
 
 /* Headline jobs figure on the stat card — one place to change it. */
 const HERO_JOBS_STAT = { value: 5, suffix: " lakh+", label: "Jobs to explore", icon: "💼" };
-/* Second stat the card rotates to — same number as the proctoring pages */
-const HERO_PROCTOR_STAT = { value: 37, suffix: "-point", label: "AI proctoring checks", icon: "🛡️" };
-const STAT_SWAP_MS = 4000;
 
 /* Popular search chips under the search bar (Naukri-style).
    Each opens /jobs with the matching filter. */
@@ -28,37 +26,75 @@ const POPULAR_SEARCHES = [
 ];
 
 
-const HERO_QUOTES = [
-  { bold: "Evaluate", accent: "Your Skills", post: "", light: "With AI Interviews" },
-  { bold: "Elevate",  accent: "Your Career", post: "", light: "With a Verified Score" },
-  { bold: "Excel",    accent: "In Every",    post: "", light: "Interview You Take" },
+/* ══ HERO VIEWS — "For Jobseekers" / "For Companies" toggle ═══════════════
+   Each view has its own 3 benchmark headlines, sub-line and buttons.
+   The headline rotates through its 3 quotes, then the toggle flips to the
+   other view by itself. Every number is a real product figure:
+   100 JDs (IRS) · 6 competencies (CIR) · 37 proctoring checks · IAEM on
+   every live interview · 5 lakh+ jobs (HERO_JOBS_STAT). */
+const HERO_VIEWS = {
+  seeker: {
+    tab: "For Jobseekers",
+    quotes: [
+      { bold: "Your Resume",   accent: "vs 100 JDs", light: "Know What's Missing" },
+      { bold: "One Interview", accent: "Six Skills", light: "Scored in Your CIR" },
+      { bold: "5 Lakh+ Jobs",  accent: "One Search", light: "At Verified Companies" },
+    ],
+    sub: "Upload your resume for an instant IRS score, take one AI interview for your CIR, and get matched to real jobs from verified companies. No keyword lottery, no interviewer bias.",
+    primary: "Get My CIR, Free",
+    secondary: "Upload Resume",
+  },
+  company: {
+    tab: "For Companies",
+    quotes: [
+      { bold: "Hire on Proof", accent: "35+ Checks",   light: "In Every AI Interview" },
+      { bold: "Interviewers",  accent: "Audited Too", light: "Before You Shortlist" },
+      { bold: "Post a JD",     accent: "Get Matches", light: "The Moment It's Live" },
+    ],
+    sub: "Post a job and IRS brings matched CVs instantly. Candidates take proctored AI rounds, IAEM audits every interviewer, and you shortlist from a ranked, verified list.",
+    primary: "Hire Verified Talent",
+    secondary: "See How IAEM Works",
+  },
+};
+const HERO_VIEW_ORDER = ["seeker", "company"];
+
+/* Trust badges above the headline */
+const HERO_BADGES = ["Verified candidates", "Verified companies"];
+
+/* Feature chips (company view, in place of the job search) — each opens its page */
+const HERO_FEATURES = [
+  { label: "IRS Instant Match", to: "/platform/resume-builder" },
+  { label: "Quick Interview",   to: "/platform/quick-interview" },
+  { label: "AI Interview",      to: "/services/ai-interviews" },
+  { label: "IAEM Audit",        to: "/platform/iaem" },
+  { label: "Proctoring",        to: "/services/assessments" },
+  { label: "CIR",               to: "/platform/quick-interview" },
 ];
 
-/* Product-state chips seated on the ribbon (replace the brand-logo chips) */
-const HERO_CHIPS = [
-  { text: "AI interview", dot: "#3E6E3E" },
-  { text: "CIR score 8.4 / 10",     dot: C.sage },
-  { text: "92% resume match",       dot: "#C08A5B" },
-  { text: "IRS: 3 skills to add",   dot: C.ink },
+/* Trust bar under the hero content */
+const HERO_TRUST = [
+  { value: "5 lakh+",  label: "Jobs to explore" },
+  { value: "Verified", label: "Companies only" },
+  { value: "35+",      label: "Proctoring checks" },
+  { value: "Every",    label: "Interviewer audited" },
+];
+
+const UPLOAD_PATH = "/jobseeker/profile?section=resume&action=upload";
+
+/* Company logo circles seated on the ribbon (Lanciere in Accenture's old spot).
+   `src` overrides the Google favicon lookup — Lanciere uses /public/lanciere-logo.png */
+const HERO_COMPANY_LOGOS = [
+  { name: "Google",                domain: "google.com",    fallback: "#4285F4" },
+  { name: "Microsoft",             domain: "microsoft.com", fallback: "#5E5E5E" },
+  { name: "Lanciere Technologies", src: "/lanciere-logo.png", fallback: "#1E88E5" },
+  { name: "Amazon",                domain: "amazon.com",    fallback: "#FF9900" },
 ];
 const QUOTE_MS = 4600;
 
-/* Floating Lanciere logo on the ribbon, right side (file: /public/lanciere-logo.png) */
-const HERO_LOGO = { name: "Lanciere Technologies", src: "/lanciere-logo.png", sx: { right: "9%", top: "21%" }, d: 1.75 };
 
-function HeroQuoteRotator() {
-  const [idx, setIdx] = useState(0);
-  const pausedRef = useRef(false);
 
-  useEffect(() => {
-    const tick = setInterval(() => {
-      if (pausedRef.current || document.hidden) return;
-      setIdx(i => (i + 1) % HERO_QUOTES.length);
-    }, QUOTE_MS);
-    return () => clearInterval(tick);
-  }, []);
-
-  const q = HERO_QUOTES[idx];
+function HeroQuoteRotator({ quotes, idx, quoteKey, onPick, pausedRef, dark }) {
+  const q = quotes[idx];
 
   return (
     <Box
@@ -67,7 +103,7 @@ function HeroQuoteRotator() {
     >
       <Typography component="h1" sx={{ fontFamily: FONT, color: C.ink, m: 0 }}>
         <Box
-          key={idx}
+          key={quoteKey}
           sx={{
             minHeight: { xs: 104, sm: 136, md: 196, lg: 226 },
             "@keyframes heroLineIn": {
@@ -89,7 +125,7 @@ function HeroQuoteRotator() {
           }}>
             {q.bold}
           </Box>
-          {/* bold line 2 — the sage accent word */}
+          {/* bold line 2 — the sage accent words */}
           <Box component="span" sx={{
             display: "block", fontWeight: 800,
             fontSize: { xs: 34, sm: 44, md: 58, lg: 66 }, lineHeight: 1.04,
@@ -109,7 +145,6 @@ function HeroQuoteRotator() {
             }}>
               {q.accent}
             </Box>
-            {q.post}
           </Box>
           {/* light line 3 */}
           <Box component="span" sx={{
@@ -123,27 +158,93 @@ function HeroQuoteRotator() {
         </Box>
       </Typography>
 
-      {/* quote dots — jump anywhere, active stretches into a sage pill */}
+      {/* quote dots — jump anywhere; active pill is sage (jobseekers) or ink (companies) */}
       <Stack direction="row" spacing={0.875} sx={{ mt: 2.25, alignItems: "center" }}>
-        {HERO_QUOTES.map((hq, i) => (
-          <Box
-            key={`${hq.bold}-${i}`}
-            onClick={() => setIdx(i)}
-            role="button" tabIndex={0}
-            aria-label={`Show quote ${i + 1}`}
-            aria-current={idx === i || undefined}
-            onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setIdx(i); } }}
-            sx={{
-              height: 7, borderRadius: 999, cursor: "pointer", outline: "none",
-              width: idx === i ? 22 : 7,
-              bgcolor: idx === i ? C.sage : "rgba(31,31,31,0.18)",
-              transition: REDUCED ? "none" : "all .35s cubic-bezier(0.22,1,0.36,1)",
-              "&:hover, &:focus-visible": { bgcolor: idx === i ? C.sage : "rgba(31,31,31,0.38)" },
-            }}
-          />
-        ))}
+        {quotes.map((hq, i) => {
+          const on = idx === i;
+          const activeBg = dark ? C.ink : C.sage;
+          return (
+            <Box
+              key={`${hq.bold}-${i}`}
+              onClick={() => onPick(i)}
+              role="button" tabIndex={0}
+              aria-label={`Show headline ${i + 1}`}
+              aria-current={on || undefined}
+              onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onPick(i); } }}
+              sx={{
+                height: 7, borderRadius: 999, cursor: "pointer", outline: "none",
+                width: on ? 22 : 7,
+                bgcolor: on ? activeBg : "rgba(31,31,31,0.18)",
+                transition: REDUCED ? "none" : "all .35s cubic-bezier(0.22,1,0.36,1)",
+                "&:hover, &:focus-visible": { bgcolor: on ? activeBg : "rgba(31,31,31,0.38)" },
+              }}
+            />
+          );
+        })}
       </Stack>
     </Box>
+  );
+}
+
+/* ══ floating info cards around the person (desktop only) ═══════════════
+   Shown per view; the hidden view's cards fade out in place. */
+function HeroInfoCard({ show, sx, glow = false, children }) {
+  return (
+    <Paper elevation={0} aria-hidden={!show} sx={{
+      position: "absolute", zIndex: 6, display: { xs: "none", md: "block" },
+      bgcolor: "#fff", borderRadius: 3.5, p: "16px 18px", textAlign: "left",
+      boxShadow: glow
+        ? "0 0 0 6px rgba(63,209,122,0.12), 0 0 50px rgba(63,209,122,0.45), 0 24px 55px rgba(31,49,43,0.25)"
+        : "0 18px 45px rgba(31,49,43,0.18)",
+      border: glow ? "2px solid rgba(63,209,122,0.55)" : "none",
+      opacity: show ? 1 : 0,
+      pointerEvents: show ? "auto" : "none",
+      translate: show ? "0 0" : "0 14px",
+      transition: REDUCED ? "none" : "opacity .45s cubic-bezier(0.22,1,0.36,1), translate .45s cubic-bezier(0.22,1,0.36,1)",
+      ...sx,
+    }}>
+      {children}
+    </Paper>
+  );
+}
+
+function CardTitle({ icon, children }) {
+  return (
+    <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
+      {icon && (
+        <Box component="span" aria-hidden="true" sx={{
+          width: 28, height: 28, borderRadius: "9px", bgcolor: C.sageSoft,
+          display: "grid", placeItems: "center", fontSize: 14, flexShrink: 0,
+        }}>{icon}</Box>
+      )}
+      <Typography sx={{ fontFamily: FONT, fontSize: 14, fontWeight: 700, color: C.ink }}>{children}</Typography>
+    </Stack>
+  );
+}
+
+function CardText({ children, sx }) {
+  return <Typography sx={{ fontFamily: FONT, fontSize: 12.5, color: C.muted, lineHeight: 1.45, mt: 0.625, ...sx }}>{children}</Typography>;
+}
+
+function CirScoreCard({ show, sx }) {
+  return (
+    <HeroInfoCard show={show} sx={{ width: 205, ...sx }}>
+      <CardTitle>CIR Score</CardTitle>
+      <Stack direction="row" spacing={1.25} sx={{ alignItems: "center", mt: 1 }}>
+        <Box sx={{
+          width: 46, height: 46, borderRadius: "50%", flexShrink: 0,
+          background: `conic-gradient(${C.sageDark} 87%, #E3EBE7 0)`,
+          display: "grid", placeItems: "center",
+        }}>
+          <Box sx={{
+            width: 36, height: 36, borderRadius: "50%", bgcolor: "#fff",
+            display: "grid", placeItems: "center",
+            fontFamily: FONT, fontWeight: 800, fontSize: 14, color: C.ink,
+          }}>87</Box>
+        </Box>
+        <CardText sx={{ mt: 0 }}>One interview<br />6 competencies scored</CardText>
+      </Stack>
+    </HeroInfoCard>
   );
 }
 
@@ -181,30 +282,32 @@ function HeroPersonImage() {
   );
 }
 
-function FeatureChip({ text, dot }) {
-  return (
+function CompanyLogoChip({ name, domain, src, fallback }) {
+  const [failed, setFailed] = useState(false);
+  return failed ? (
     <Box component="span" sx={{
-      display: "inline-flex", alignItems: "center", gap: 1,
-      fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink, whiteSpace: "nowrap",
+      width: 26, height: 26, borderRadius: "50%", bgcolor: fallback,
+      color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
+      fontFamily: FONT, fontSize: 13, fontWeight: 700,
     }}>
-      <Box component="span" aria-hidden="true" sx={{ width: 9, height: 9, borderRadius: "50%", bgcolor: dot, flexShrink: 0 }} />
-      {text}
+      {name[0]}
     </Box>
+  ) : (
+    <Box
+      component="img"
+      src={src || `https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
+      alt={`${name} logo`}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      sx={{ width: src ? 32 : 26, height: src ? 32 : 26, display: "block", objectFit: "contain" }}
+    />
   );
 }
 
 function HiredStatCard() {
   const [ref, visible] = useInView(0.3);
-  const jobsCount = useCounter(HERO_JOBS_STAT.value, 1600, visible);
-  const proctorCount = useCounter(HERO_PROCTOR_STAT.value, 1600, visible);
-  const [statIdx, setStatIdx] = useState(0);
-  useEffect(() => {
-    if (!visible) return;
-    const t = setInterval(() => setStatIdx(i => (i === 0 ? 1 : 0)), STAT_SWAP_MS);
-    return () => clearInterval(t);
-  }, [visible]);
-  const stat = statIdx === 0 ? HERO_JOBS_STAT : HERO_PROCTOR_STAT;
-  const count = statIdx === 0 ? jobsCount : proctorCount;
+  const count = useCounter(HERO_JOBS_STAT.value, 1600, visible);
+  const stat = HERO_JOBS_STAT;
   // Each bar: entry height + a gentle continuous "breathe" range + timing offsets.
   const bars = [
     { h: 48, c: C.ink,  amp: 10, dur: 2.6, delay: 0.0 },
@@ -292,6 +395,34 @@ function HiredStatCard() {
 
 export default function HeroSection() {
   const navigate = useNavigate();
+  const { goToAIInterview } = useApplyNavigation();
+
+  /* toggle + headline rotation: 3 quotes per view, then the view flips */
+  const [view, setView] = useState("seeker");
+  const [qIdx, setQIdx] = useState(0);
+  const [cycle, setCycle] = useState(0);
+  const pausedRef = useRef(false);
+  const V = HERO_VIEWS[view];
+  const isCompany = view === "company";
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      if (pausedRef.current || document.hidden) { setCycle(c => c + 1); return; }
+      if (qIdx < HERO_VIEWS[view].quotes.length - 1) {
+        setQIdx(qIdx + 1);
+      } else {
+        setView(v => HERO_VIEW_ORDER[(HERO_VIEW_ORDER.indexOf(v) + 1) % HERO_VIEW_ORDER.length]);
+        setQIdx(0);
+      }
+    }, QUOTE_MS);
+    return () => clearTimeout(t);
+  }, [view, qIdx, cycle]);
+
+  const pickView  = (v) => { setView(v); setQIdx(0); setCycle(c => c + 1); };
+  const pickQuote = (i) => { setQIdx(i); setCycle(c => c + 1); };
+
+  const onPrimary   = () => (isCompany ? navigate("/auth?view=register-company") : goToAIInterview());
+  const onSecondary = () => navigate(isCompany ? "/platform/iaem" : UPLOAD_PATH);
 
 
   /* 🔧 SEARCH REDIRECT — the popup results modal is gone. Searching now
@@ -362,16 +493,16 @@ export default function HeroSection() {
               />
             </Box>
 
-            {/* product-state chips seated on the ribbon crests */}
+            {/* company logo circles seated on the ribbon crests */}
             {[
-              { chip: HERO_CHIPS[0], sx: { left: "0%",  top: "27%" }, d: 0 },
-              { chip: HERO_CHIPS[1], sx: { left: "24%", top: "15%" }, d: 0.7 },
-              { chip: HERO_CHIPS[2], sx: { left: "58%", top: "11%" }, d: 1.4 },
-              { chip: HERO_CHIPS[3], sx: { right: "2%", top: "36%" }, d: 2.1 },
-            ].map(({ chip, sx, d }) => (
-              <Box key={chip.text} sx={{
+              { co: HERO_COMPANY_LOGOS[0], sx: { left: "1%",  top: "27%" }, d: 0 },
+              { co: HERO_COMPANY_LOGOS[1], sx: { left: "30%", top: "16%" }, d: 0.7 },
+              { co: HERO_COMPANY_LOGOS[2], sx: { left: "70%", top: "13%" }, d: 1.4 },
+              { co: HERO_COMPANY_LOGOS[3], sx: { left: "88%", top: "36%" }, d: 2.1 },
+            ].map(({ co, sx, d }) => (
+              <Box key={co.name} title={co.name} sx={{
                 position: "absolute", ...sx, zIndex: 5, pointerEvents: "auto",
-                height: 44, px: 2, borderRadius: 999, bgcolor: "#fff",
+                width: 50, height: 50, borderRadius: "50%", bgcolor: "#fff",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 boxShadow: "0 12px 30px rgba(31,49,43,0.18)",
                 opacity: REDUCED ? 1 : 0,
@@ -386,29 +517,16 @@ export default function HeroSection() {
                   "50%":     { transform: "translateY(-9px)" },
                 },
               }}>
-                <FeatureChip {...chip} />
+                <CompanyLogoChip {...co} />
               </Box>
             ))}
-
-            {/* floating Lanciere company logo */}
-            <Box component="img" src={HERO_LOGO.src} alt={`${HERO_LOGO.name} logo`} title={HERO_LOGO.name}
-              onError={e => { e.currentTarget.style.display = "none"; }}
-              sx={{
-                position: "absolute", ...HERO_LOGO.sx, zIndex: 5,
-                width: 54, height: 54, borderRadius: "50%", objectFit: "contain", display: "block",
-                bgcolor: "#fff", p: "10px", boxSizing: "border-box",
-                boxShadow: "0 12px 30px rgba(31,49,43,0.18)",
-                opacity: REDUCED ? 1 : 0,
-                animation: REDUCED ? "none"
-                  : `chipPop .6s cubic-bezier(0.34,1.4,0.5,1) ${1.3 + HERO_LOGO.d * 0.2}s forwards, heroFloat 4.5s ease-in-out ${2 + HERO_LOGO.d}s infinite`,
-              }} />
           </Box>
         </Box>
 
         {/* ── HERO CONTENT ── */}
-        <Container maxWidth="xl" sx={{ position: "relative", flex: 1, display: "flex", pt: { xs: 12, md: 15 } }}>
+        <Container maxWidth="xl" sx={{ position: "relative", flex: 1, display: "flex", flexDirection: "column", pt: { xs: 12, md: 15 } }}>
           <Stack direction={{ xs: "column", md: "row" }}
-            spacing={{ xs: 6, md: 2 }} sx={{ alignItems: { md: "stretch" }, width: "100%" }}>
+            spacing={{ xs: 6, md: 2 }} sx={{ alignItems: { md: "stretch" }, width: "100%", flex: 1 }}>
 
             {/* Left — heading, copy, underline search */}
             <Box sx={{
@@ -416,45 +534,146 @@ export default function HeroSection() {
               justifyContent: { xs: "center", md: "flex-start" }, pt: { xs: 5, md: 4 }, pb: { md: 10 },
               pl: { md: 6, lg: 10 },
             }}>
+              {/* Jobseekers / Companies toggle */}
               <FadeUp>
-                <Box sx={{
-                  display: "inline-flex", alignItems: "center", gap: 1, alignSelf: "flex-start",
-                  mb: 2.5, px: 2, py: 0.875, borderRadius: 999,
-                  bgcolor: "rgba(255,255,255,0.7)", border: "1px solid rgba(31,31,31,0.08)",
-                  fontFamily: FONT, fontSize: { xs: 12.5, sm: 13.5 }, fontWeight: 600, color: C.ink,
+                <Box role="tablist" aria-label="Choose who you are" sx={{
+                  display: "inline-flex", p: 0.5, mb: 2, borderRadius: 999,
+                  bgcolor: "rgba(255,255,255,0.75)", border: "1px solid rgba(31,31,31,0.08)",
                 }}>
-                  <Box component="span" aria-hidden="true" sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: C.sageDark }} />
-                  Evaluate. Elevate. Excel.
+                  {HERO_VIEW_ORDER.map(v => {
+                    const on = view === v;
+                    return (
+                      <Box key={v} component="button" type="button" role="tab" aria-selected={on}
+                        onClick={() => pickView(v)}
+                        sx={{
+                          appearance: "none", border: 0, cursor: "pointer", borderRadius: 999,
+                          px: { xs: 2, sm: 2.25 }, py: 1.125,
+                          fontFamily: FONT, fontSize: { xs: 13, sm: 14 }, fontWeight: 600,
+                          bgcolor: on ? C.ink : "transparent", color: on ? "#fff" : C.ink,
+                          transition: REDUCED ? "none" : "background-color .3s, color .3s",
+                          "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
+                        }}>
+                        {HERO_VIEWS[v].tab}
+                      </Box>
+                    );
+                  })}
                 </Box>
               </FadeUp>
-              <HeroQuoteRotator />
-              <FadeUp delay={0.2} sx={{ mt: { xs: 5, md: 7 } }}>
-                <JobSearchBar onSearch={goToResults} />
-              </FadeUp>
-              <FadeUp delay={0.3}>
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.25, mt: 2.5, maxWidth: 660 }}>
-                  {POPULAR_SEARCHES.map(s => (
-                    <Box
-                      key={s.label} component="button" type="button"
-                      onClick={() => navigate(`/jobs?${new URLSearchParams(s.params).toString()}`)}
-                      sx={{
-                        appearance: "none", cursor: "pointer", minHeight: 40,
-                        display: "inline-flex", alignItems: "center", gap: 0.5,
-                        bgcolor: "rgba(255,255,255,0.85)", border: "1px solid rgba(31,31,31,0.06)",
-                        borderRadius: "12px", px: 1.75, py: 0.875,
-                        fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink,
-                        boxShadow: "0 4px 14px rgba(31,31,31,0.04)",
-                        transition: REDUCED ? "none" : "background-color .2s, transform .2s",
-                        "&:hover": { bgcolor: "#fff", transform: "translateY(-2px)" },
-                        "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
-                      }}
-                    >
-                      {s.label}
-                      <Box component="span" aria-hidden="true" sx={{ color: C.sage, fontSize: 16, lineHeight: 1 }}>›</Box>
+
+              {/* trust badges */}
+              <FadeUp delay={0.05}>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2.25 }}>
+                  {HERO_BADGES.map(b => (
+                    <Box key={b} component="span" sx={{
+                      display: "inline-flex", alignItems: "center", gap: 0.625,
+                      px: 1.5, py: 0.625, borderRadius: 999, bgcolor: "rgba(255,255,255,0.7)",
+                      fontFamily: FONT, fontSize: 13, fontWeight: 600, color: C.ink,
+                    }}>
+                      <Box component="span" aria-hidden="true" sx={{ color: C.sageDark, fontWeight: 800 }}>✓</Box>
+                      {b}
                     </Box>
                   ))}
                 </Box>
               </FadeUp>
+
+              <HeroQuoteRotator
+                quotes={V.quotes} idx={qIdx} quoteKey={`${view}-${qIdx}`}
+                onPick={pickQuote} pausedRef={pausedRef} dark={isCompany}
+              />
+
+              {/* sub-line + buttons — re-fade on every view switch */}
+              <Box key={view} sx={{
+                animation: REDUCED ? "none" : "heroViewIn .5s cubic-bezier(0.22,1,0.36,1) both",
+                "@keyframes heroViewIn": {
+                  from: { opacity: 0, transform: "translateY(10px)" },
+                  to:   { opacity: 1, transform: "translateY(0)" },
+                },
+              }}>
+                <Typography sx={{
+                  fontFamily: FONT, fontSize: { xs: 15, md: 17 }, lineHeight: 1.55,
+                  color: "#3E4642", mt: 2.5, maxWidth: 580,
+                }}>
+                  {V.sub}
+                </Typography>
+
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mt: 3 }}>
+                  <Box component="button" type="button" onClick={onPrimary} sx={{
+                    appearance: "none", border: 0, cursor: "pointer", borderRadius: 999,
+                    px: 3, py: 1.75, bgcolor: C.ink, color: "#fff",
+                    fontFamily: FONT, fontSize: 15, fontWeight: 700,
+                    transition: REDUCED ? "none" : "transform .2s, box-shadow .2s",
+                    "&:hover": { transform: "translateY(-2px)", boxShadow: "0 10px 24px rgba(31,31,31,0.2)" },
+                    "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
+                  }}>
+                    {V.primary}
+                  </Box>
+                  <Box component="button" type="button" onClick={onSecondary} sx={{
+                    appearance: "none", border: 0, cursor: "pointer", borderRadius: 999,
+                    px: 3, py: 1.75, bgcolor: "#fff", color: C.ink,
+                    fontFamily: FONT, fontSize: 15, fontWeight: 700,
+                    transition: REDUCED ? "none" : "transform .2s",
+                    "&:hover": { transform: "translateY(-2px)" },
+                    "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
+                  }}>
+                    {V.secondary}
+                  </Box>
+                </Box>
+
+                {isCompany ? (
+                  /* company view — feature chips in place of the job search */
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.25, mt: 3, maxWidth: 660 }}>
+                    {HERO_FEATURES.map(f => (
+                      <Box
+                        key={f.label} component="button" type="button"
+                        onClick={() => navigate(f.to)}
+                        sx={{
+                          appearance: "none", cursor: "pointer", minHeight: 40,
+                          display: "inline-flex", alignItems: "center", gap: 0.5,
+                          bgcolor: "rgba(255,255,255,0.85)", border: "1px solid rgba(31,31,31,0.06)",
+                          borderRadius: "12px", px: 1.75, py: 0.875,
+                          fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink,
+                          boxShadow: "0 4px 14px rgba(31,31,31,0.04)",
+                          transition: REDUCED ? "none" : "background-color .2s, transform .2s",
+                          "&:hover": { bgcolor: "#fff", transform: "translateY(-2px)" },
+                          "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
+                        }}
+                      >
+                        {f.label}
+                        <Box component="span" aria-hidden="true" sx={{ color: C.sage, fontSize: 16, lineHeight: 1 }}>›</Box>
+                      </Box>
+                    ))}
+                  </Box>
+                ) : (
+                  /* jobseeker view — job search + popular searches (unchanged behaviour) */
+                  <>
+                    <Box sx={{ mt: 3 }}>
+                      <JobSearchBar onSearch={goToResults} />
+                    </Box>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.25, mt: 2.5, maxWidth: 660 }}>
+                      {POPULAR_SEARCHES.map(s => (
+                        <Box
+                          key={s.label} component="button" type="button"
+                          onClick={() => navigate(`/jobs?${new URLSearchParams(s.params).toString()}`)}
+                          sx={{
+                            appearance: "none", cursor: "pointer", minHeight: 40,
+                            display: "inline-flex", alignItems: "center", gap: 0.5,
+                            bgcolor: "rgba(255,255,255,0.85)", border: "1px solid rgba(31,31,31,0.06)",
+                            borderRadius: "12px", px: 1.75, py: 0.875,
+                            fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink,
+                            boxShadow: "0 4px 14px rgba(31,31,31,0.04)",
+                            transition: REDUCED ? "none" : "background-color .2s, transform .2s",
+                            "&:hover": { bgcolor: "#fff", transform: "translateY(-2px)" },
+                            "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
+                          }}
+                        >
+                          {s.label}
+                          <Box component="span" aria-hidden="true" sx={{ color: C.sage, fontSize: 16, lineHeight: 1 }}>›</Box>
+                        </Box>
+                      ))}
+                    </Box>
+                  </>
+                )}
+              </Box>
 
             </Box>
 
@@ -478,10 +697,63 @@ export default function HeroSection() {
                     stock photo so the hero always renders. */}
                 <HeroPersonImage />
 
-                <HiredStatCard />
+                {/* jobseeker cards */}
+                {!isCompany && <HiredStatCard />}
+                <HeroInfoCard show={!isCompany} sx={{ width: 235, left: "-28%", top: "12%" }}>
+                  <CardTitle icon="🔍">IRS: Resume Score</CardTitle>
+                  <CardText>Scored against the last 100 same-skill JDs.</CardText>
+                  <CardText sx={{ color: C.ink, fontWeight: 600, mt: 1 }}>Missing: Docker · REST APIs · SQL</CardText>
+                </HeroInfoCard>
+                <CirScoreCard show={!isCompany} sx={{ right: "-10%", top: "66%" }} />
+
+                {/* company cards */}
+                <HeroInfoCard show={isCompany} sx={{ width: 250, left: "-22%", top: "12%" }}>
+                  <CardTitle icon="🔍">IRS: Instant Match</CardTitle>
+                  <CardText>Post a JD, get matched CVs instantly, ranked by Quick Interview score, location and salary.</CardText>
+                </HeroInfoCard>
+                <HeroInfoCard show={isCompany} glow sx={{
+                  width: 270, p: "20px", left: { md: "-20%", lg: "-24%", xl: "-50%" }, top: { md: "40%", xl: "38%" },
+                }}>
+                  <Box aria-hidden="true" sx={{ fontSize: 32, lineHeight: 1, filter: "drop-shadow(0 0 12px rgba(63,209,122,0.8))" }}>🛡️</Box>
+                  <Typography sx={{ fontFamily: FONT, fontSize: 22, fontWeight: 800, color: C.ink, mt: 0.75 }}>IAEM Audited</Typography>
+                  <CardText>Every interviewer reviewed before you shortlist.</CardText>
+                  <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0, mt: 1.25 }}>
+                    {["35+ proctoring checks", "Panel fraud detection", "Interviewer score report"].map(t => (
+                      <Box component="li" key={t} sx={{
+                        display: "flex", alignItems: "center", gap: 1, py: 0.625,
+                        borderTop: `1px solid ${C.line}`,
+                        fontFamily: FONT, fontSize: 13, color: C.ink,
+                      }}>
+                        <Box component="span" aria-hidden="true" sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: "#3FD17A", flexShrink: 0 }} />
+                        {t}
+                      </Box>
+                    ))}
+                  </Box>
+                </HeroInfoCard>
+                <CirScoreCard show={isCompany} sx={{ right: "-10%", top: "76%" }} />
               </Box>
             </Box>
           </Stack>
+
+          {/* trust bar */}
+          <FadeUp delay={0.35} sx={{ mt: { xs: 2, md: 1 }, mb: { xs: 0, md: 13 }, mx: { md: 6, lg: 10 }, position: "relative", zIndex: 4 }}>
+            <Box sx={{
+              display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" },
+              bgcolor: "#fff", borderRadius: "16px", overflow: "hidden",
+              boxShadow: "0 10px 30px rgba(31,49,43,0.08)",
+            }}>
+              {HERO_TRUST.map((t, i) => (
+                <Box key={t.label} sx={{
+                  px: { xs: 2, md: 2.5 }, py: 2,
+                  borderLeft: { xs: i % 2 ? `1px solid ${C.line}` : "none", md: i ? `1px solid ${C.line}` : "none" },
+                  borderTop: { xs: i > 1 ? `1px solid ${C.line}` : "none", md: "none" },
+                }}>
+                  <Typography sx={{ fontFamily: FONT, fontSize: 20, fontWeight: 800, color: C.ink, lineHeight: 1.2 }}>{t.value}</Typography>
+                  <Typography sx={{ fontFamily: FONT, fontSize: 12.5, color: C.muted }}>{t.label}</Typography>
+                </Box>
+              ))}
+            </Box>
+          </FadeUp>
         </Container>
       </Box>
     </>

@@ -16,6 +16,7 @@ import HiringBanner from "./landing/HiringBanner";
 import TopIndustries from "./landing/TopIndustries";
 import TopCompanies from "./landing/TopCompanies";
 import EasyFind from "./landing/EasyFind";
+import HowItWorksPreview from "./landing/HowItWorksPreview";
 import FeatureJobs from "./landing/FeatureJobs";
 import Cta40 from "./landing/Cta40";
 import TestimonialsSection from "./landing/Testimonials";
@@ -169,7 +170,7 @@ const LandingPage = () => {
       <HiringBanner />
       <TopIndustries catRef={catRef} />
       <TopCompanies />
-      <EasyFind />
+      <HowItWorksPreview howRef={howRef} />
       <FeatureJobs jobsRef={jobsRef} />
       <Cta40 />
       <TestimonialsSection testiRef={testiRef} />
