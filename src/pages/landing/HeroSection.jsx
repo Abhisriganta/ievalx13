@@ -41,7 +41,7 @@ const HERO_VIEWS = {
       { bold: "5 Lakh+ Jobs",  accent: "One Search", light: "At Verified Companies" },
     ],
     sub: "Upload your resume for an instant IRS score, take one AI interview for your CIR, and get matched to real jobs from verified companies. No keyword lottery, no interviewer bias.",
-    primary: "Get My CIR, Free",
+    primary: "Get My CIR",
     secondary: "Upload Resume",
   },
   company: {
