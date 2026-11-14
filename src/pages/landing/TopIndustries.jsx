@@ -91,7 +91,7 @@ export default function TopIndustries({ catRef }) {
   const navigate = useNavigate();
   const { industries, loading: apiLoading } = usePublicIndustries();
 
-  const showDemo = import.meta.env.DEV && industries.length === 0;
+  const showDemo = (import.meta.env.DEV || import.meta.env.VITE_SHOW_DEMO === "true") && industries.length === 0;
   const loading  = apiLoading && !showDemo;
   const tiles    = (showDemo ? DEMO_INDUSTRIES : industries).slice(0, MAX_TILES);
 

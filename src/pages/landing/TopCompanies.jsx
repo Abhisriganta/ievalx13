@@ -130,11 +130,11 @@ export default function TopCompanies() {
   };
 
   const live      = groupCompanies(jobs);
-  const showDemo  = import.meta.env.DEV && live.length === 0;
+  const showDemo  = (import.meta.env.DEV || import.meta.env.VITE_SHOW_DEMO === "true") && live.length === 0;
   const loading   = apiLoading && !showDemo;
   const companies = showDemo ? DEMO_COMPANIES : live;
 
-  if (!loading && companies.length === 0) return null;
+  const isEmpty   = !loading && companies.length === 0;
 
   /* tabs: industries with the most companies */
   const indCount = {};
@@ -260,10 +260,32 @@ export default function TopCompanies() {
                 </Box>
               </Box>
             ))}
+
+            {/* ── no companies yet — friendly message instead of hiding the section ── */}
+            {isEmpty && (
+              <Box sx={{
+                flex: "1 1 100%", textAlign: "center", py: { xs: 5, md: 6 }, px: 2,
+                bgcolor: "#fff", border: `1px dashed ${C.line}`, borderRadius: "20px",
+              }}>
+                <Box aria-hidden="true" sx={{
+                  width: 56, height: 56, borderRadius: "50%", mx: "auto",
+                  bgcolor: "#E5F0E4", color: "#3E6E3E",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <VerifiedRounded sx={{ fontSize: 28 }} />
+                </Box>
+                <Typography sx={{ fontFamily: FONT, fontSize: 17, fontWeight: 700, color: C.ink, mt: 2 }}>
+                  Verified companies are on their way
+                </Typography>
+                <Typography sx={{ fontFamily: FONT, fontSize: 14, color: C.muted, mt: 0.75, maxWidth: 440, mx: "auto" }}>
+                  Companies will appear here as soon as verified employers publish their first openings.
+                </Typography>
+              </Box>
+            )}
           </Box>
 
           {/* ── prev / next arrows (hidden on touch-size screens; swipe works there) ── */}
-          {!loading && [
+          {!loading && !isEmpty && [
             { dir: -1, label: "Previous companies", Icon: ChevronLeftRounded, side: { left: -22 }, off: edge.start },
             { dir: 1,  label: "Next companies",     Icon: ChevronRightRounded, side: { right: -22 }, off: edge.end },
           ].map(({ dir, label, Icon, side, off }) => (
