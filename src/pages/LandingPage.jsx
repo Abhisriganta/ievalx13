@@ -81,7 +81,7 @@ const LandingPage = () => {
         { head: "For job seekers", links: [
           { label: "Quick Interview",       onClick: () => navigate("/platform/quick-interview") },
           { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
-          { label: "AI Resume Builder",     onClick: () => navigate("/platform/resume-builder") },
+          { label: "IRS based Resume Builder",     onClick: () => navigate("/platform/resume-builder") },
         ]},
         { head: "For companies", links: [
           { label: "Hiring Pipeline",        onClick: () => navigate("/platform/hiring-pipeline") },
@@ -165,7 +165,7 @@ const LandingPage = () => {
       {/* ── OFFCANVAS (fixed; outside the clip-path hero wrapper) ── */}
       <OffcanvasPanel open={panelOpen} onClose={() => setPanelOpen(false)} />
 
-      <HeroSection />
+      <HeroSection onHowItWorks={() => scrollTo(howRef)} />
       <PartnerMarquee />
       <HiringBanner />
       <TopIndustries catRef={catRef} />

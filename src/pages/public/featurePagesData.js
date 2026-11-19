@@ -74,13 +74,13 @@ export const FEATURE_PAGES = {
   },
 
   "resume-builder": {
-    eyebrow: "AI Resume Builder + IRS",
+    eyebrow: " Resume Builder + IRS",
     title: "Build the Resume Real Jobs Are Asking For",
     subtitle:
       "Write, tailor and check your resume in one place. IRS compares it with real job descriptions and shows exactly which skills are missing.",
     cta: { label: "Build My Resume", action: "resumeBuilder" },
     whatItIs:
-      "Two tools on one page. The AI Resume Builder helps you write and tailor your resume. IRS (Intelligent Resume Search) tells you how it stacks up against real openings for your role.",
+      "Two tools on one page. The  helps you write and tailor your resume. IRS (Intelligent Resume Search) tells you how it stacks up against real openings for your role.",
     steps: [
       { title: "Pick your role and level", desc: "For example, Backend Developer, 2–4 years." },
       { title: "IRS compares", desc: "Your resume is checked against real job descriptions posted on iEvalX for that role and level." },
@@ -91,7 +91,7 @@ export const FEATURE_PAGES = {
     blocks: [
       {
         type: "cards",
-        eyebrow: "AI Resume Builder",
+        eyebrow: "Resume Builder",
         title: "Write and Tailor Without the Busywork",
         items: [
           { title: "Start your way",          desc: "Upload an existing resume or start from scratch." },

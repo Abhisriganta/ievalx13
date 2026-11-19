@@ -61,7 +61,7 @@ export default function PublicLayout({ children, _hero }) {
         { head: "For job seekers", links: [
           { label: "Quick Interview",       onClick: () => navigate("/platform/quick-interview") },
           { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
-          { label: "AI Resume Builder",     onClick: () => navigate("/platform/resume-builder") },
+          { label: " Resume Builder",     onClick: () => navigate("/platform/resume-builder") },
         ]},
         { head: "For companies", links: [
           { label: "Hiring Pipeline",        onClick: () => navigate("/platform/hiring-pipeline") },

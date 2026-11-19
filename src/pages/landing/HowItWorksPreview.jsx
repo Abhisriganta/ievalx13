@@ -370,8 +370,9 @@ export default function HowItWorksPreview({ howRef }) {
   return (
     <Box
       ref={howRef}
+      id="how-it-works"
       className="hw-root"
-      sx={{ position: "relative", mt: { xs: 8, md: 12 }, py: { xs: 7, md: 10 }, bgcolor: C.cream, overflow: "hidden" }}
+      sx={{ position: "relative", mt: { xs: 8, md: 12 }, py: { xs: 7, md: 10 }, bgcolor: C.cream, overflow: "hidden", scrollMarginTop: { xs: 64, md: 76 } }}
       style={{ "--dur": `${STEP_MS}ms` }}
     >
       <Box component="style">{HW_CSS}</Box>

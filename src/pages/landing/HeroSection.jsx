@@ -7,7 +7,7 @@ import { FadeUp } from "./primitives";
 import { HERO_PERSON } from "./data";
 import heroPersonArt from "../../assets/images/Herosection.png";
 import JobSearchBar from "./JobSearchBar";
-import useApplyNavigation from "@/hooks/useApplyNavigation";
+
 
 /* Headline jobs figure on the stat card — one place to change it. */
 const HERO_JOBS_STAT = { value: 5, suffix: " lakh+", label: "Jobs to explore", icon: "💼" };
@@ -15,14 +15,20 @@ const HERO_JOBS_STAT = { value: 5, suffix: " lakh+", label: "Jobs to explore", i
 /* Popular search chips under the search bar (Naukri-style).
    Each opens /jobs with the matching filter. */
 const POPULAR_SEARCHES = [
-  { label: "Fresher",    params: { exp: "Fresher" } },
-  { label: "Remote",     params: { q: "Remote" } },
-  { label: "Software",   params: { q: "Software" } },
-  { label: "Internship", params: { q: "Intern" } },
-  { label: "Data",       params: { q: "Data" } },
-  { label: "Sales",      params: { q: "Sales" } },
-  { label: "HR",         params: { q: "HR" } },
-  { label: "Finance",    params: { q: "Finance" } },
+  { label: "Fresher",          params: { exp: "Fresher" } },
+  { label: "Remote",           params: { q: "Remote" } },
+  { label: "Software",         params: { q: "Software" } },
+  { label: "Internship",       params: { q: "Intern" } },
+  { label: "Data",             params: { q: "Data" } },
+  { label: "Sales",            params: { q: "Sales" } },
+  { label: "Marketing",        params: { q: "Marketing" } },
+  { label: "HR",               params: { q: "HR" } },
+  { label: "Finance",          params: { q: "Finance" } },
+  { label: "Design",           params: { q: "Design" } },
+  { label: "Engineering",      params: { q: "Engineering" } },
+  { label: "Customer Support", params: { q: "Customer Support" } },
+  { label: "Banking",          params: { q: "Banking" } },
+  { label: "Healthcare",       params: { q: "Healthcare" } },
 ];
 
 
@@ -35,31 +41,25 @@ const POPULAR_SEARCHES = [
 const HERO_VIEWS = {
   seeker: {
     tab: "For Jobseekers",
-    quotes: [
-      { bold: "Your Resume",   accent: "vs 100 JDs", light: "Know What's Missing" },
-      { bold: "One Interview", accent: "Six Skills", light: "Scored in Your CIR" },
-      { bold: "5 Lakh+ Jobs",  accent: "One Search", light: "At Verified Companies" },
+   quotes: [
+      { bold: "Find the Right", accent: "Opportunity.", light: "Show What You're Capable Of." },
+      { bold: "Your Skills.",   accent: "Your Score.",  light: "Your Next Opportunity." },
+      { bold: "5 Lakh+ Jobs",   accent: "One Search",   light: "At Verified Companies" },
     ],
     sub: "Upload your resume for an instant IRS score, take one AI interview for your CIR, and get matched to real jobs from verified companies. No keyword lottery, no interviewer bias.",
-    primary: "Get My CIR",
-    secondary: "Upload Resume",
   },
   company: {
     tab: "For Companies",
     quotes: [
-      { bold: "Hire on Proof", accent: "35+ Checks",   light: "In Every AI Interview" },
-      { bold: "Interviewers",  accent: "Audited Too", light: "Before You Shortlist" },
-      { bold: "Post a JD",     accent: "Get Matches", light: "The Moment It's Live" },
+      { bold: "Hire on Proof",           accent: "35+ Checks",                 light: "In Every AI Interview" },
+      { bold: "Every Candidate Scored.", accent: "Every Interviewer Audited.", light: "Every Hire Defensible." },
+      { bold: "Don't Just Fill",         accent: "Positions.",                 light: "Build the Right Teams." },
     ],
     sub: "Post a job and IRS brings matched CVs instantly. Candidates take proctored AI rounds, IAEM audits every interviewer, and you shortlist from a ranked, verified list.",
-    primary: "Hire Verified Talent",
-    secondary: "See How IAEM Works",
   },
 };
 const HERO_VIEW_ORDER = ["seeker", "company"];
 
-/* Trust badges above the headline */
-const HERO_BADGES = ["Verified candidates", "Verified companies"];
 
 /* Feature chips (company view, in place of the job search) — each opens its page */
 const HERO_FEATURES = [
@@ -79,7 +79,6 @@ const HERO_TRUST = [
   { value: "Every",    label: "Interviewer audited" },
 ];
 
-const UPLOAD_PATH = "/jobseeker/profile?section=resume&action=upload";
 
 /* Company logo circles seated on the ribbon (Lanciere in Accenture's old spot).
    `src` overrides the Google favicon lookup — Lanciere uses /public/lanciere-logo.png */
@@ -105,7 +104,7 @@ function HeroQuoteRotator({ quotes, idx, quoteKey, onPick, pausedRef, dark }) {
         <Box
           key={quoteKey}
           sx={{
-            minHeight: { xs: 104, sm: 136, md: 196, lg: 226 },
+            minHeight: { xs: 96, sm: 120, md: 150, lg: 166 },
             "@keyframes heroLineIn": {
               from: { opacity: 0, transform: "translateY(26px)" },
               to:   { opacity: 1, transform: "translateY(0)" },
@@ -119,7 +118,7 @@ function HeroQuoteRotator({ quotes, idx, quoteKey, onPick, pausedRef, dark }) {
           {/* bold line 1 */}
           <Box component="span" sx={{
             display: "block", fontWeight: 800,
-            fontSize: { xs: 34, sm: 44, md: 58, lg: 66 }, lineHeight: 1.04,
+            fontSize: { xs: 30, sm: 38, md: 48, lg: 54 }, lineHeight: 1.06,
             letterSpacing: "-1px", whiteSpace: "nowrap",
             animation: REDUCED ? "none" : "heroLineIn .65s cubic-bezier(0.22,1,0.36,1) both",
           }}>
@@ -128,7 +127,7 @@ function HeroQuoteRotator({ quotes, idx, quoteKey, onPick, pausedRef, dark }) {
           {/* bold line 2 — the sage accent words */}
           <Box component="span" sx={{
             display: "block", fontWeight: 800,
-            fontSize: { xs: 34, sm: 44, md: 58, lg: 66 }, lineHeight: 1.04,
+            fontSize: { xs: 30, sm: 38, md: 48, lg: 54 }, lineHeight: 1.06,
             letterSpacing: "-1px", whiteSpace: "nowrap",
             animation: REDUCED ? "none" : "heroLineIn .65s cubic-bezier(0.22,1,0.36,1) .1s both",
           }}>
@@ -149,7 +148,7 @@ function HeroQuoteRotator({ quotes, idx, quoteKey, onPick, pausedRef, dark }) {
           {/* light line 3 */}
           <Box component="span" sx={{
             display: "block", fontWeight: 400,
-            fontSize: { xs: 26, sm: 34, md: 44, lg: 50 }, lineHeight: 1.12,
+           fontSize: { xs: 22, sm: 28, md: 36, lg: 40 }, lineHeight: 1.14,
             whiteSpace: "nowrap",
             animation: REDUCED ? "none" : "heroLineIn .65s cubic-bezier(0.22,1,0.36,1) .2s both",
           }}>
@@ -226,11 +225,26 @@ function CardText({ children, sx }) {
   return <Typography sx={{ fontFamily: FONT, fontSize: 12.5, color: C.muted, lineHeight: 1.45, mt: 0.625, ...sx }}>{children}</Typography>;
 }
 
-function CirScoreCard({ show, sx }) {
+/* ══ combined IRS + CIR card (bottom-right) — content follows the toggle ══ */
+function ScoreCard({ show, isCompany, sx }) {
   return (
-    <HeroInfoCard show={show} sx={{ width: 205, ...sx }}>
-      <CardTitle>CIR Score</CardTitle>
-      <Stack direction="row" spacing={1.25} sx={{ alignItems: "center", mt: 1 }}>
+    <HeroInfoCard show={show} sx={{ width: 255, ...sx }}>
+      {/* IRS */}
+      <CardTitle icon="🔍">{isCompany ? "IRS: Instant Match" : "IRS: Resume Score"}</CardTitle>
+      <CardText>
+        {isCompany
+          ? "Post a JD, get matched CVs instantly, ranked by Quick Interview score, location and salary."
+          : "Scored against the last 100 same-skill JDs."}
+      </CardText>
+      {!isCompany && (
+        <CardText sx={{ color: C.ink, fontWeight: 600, mt: 0.75 }}>Missing: Docker · REST APIs · SQL</CardText>
+      )}
+
+      {/* CIR */}
+      <Box sx={{
+        display: "flex", alignItems: "center", gap: 1.25,
+        mt: 1.5, pt: 1.5, borderTop: `1px solid ${C.line}`,
+      }}>
         <Box sx={{
           width: 46, height: 46, borderRadius: "50%", flexShrink: 0,
           background: `conic-gradient(${C.sageDark} 87%, #E3EBE7 0)`,
@@ -242,8 +256,11 @@ function CirScoreCard({ show, sx }) {
             fontFamily: FONT, fontWeight: 800, fontSize: 14, color: C.ink,
           }}>87</Box>
         </Box>
-        <CardText sx={{ mt: 0 }}>One interview<br />6 competencies scored</CardText>
-      </Stack>
+        <Box>
+          <Typography sx={{ fontFamily: FONT, fontSize: 14, fontWeight: 700, color: C.ink, lineHeight: 1.2 }}>CIR Score</Typography>
+          <CardText sx={{ mt: 0.25 }}>One interview · 6 competencies scored</CardText>
+        </Box>
+      </Box>
     </HeroInfoCard>
   );
 }
@@ -393,9 +410,8 @@ function HiredStatCard() {
   );
 }
 
-export default function HeroSection() {
+export default function HeroSection({ onHowItWorks }) {
   const navigate = useNavigate();
-  const { goToAIInterview } = useApplyNavigation();
 
   /* toggle + headline rotation: 3 quotes per view, then the view flips */
   const [view, setView] = useState("seeker");
@@ -421,8 +437,6 @@ export default function HeroSection() {
   const pickView  = (v) => { setView(v); setQIdx(0); setCycle(c => c + 1); };
   const pickQuote = (i) => { setQIdx(i); setCycle(c => c + 1); };
 
-  const onPrimary   = () => (isCompany ? navigate("/auth?view=register-company") : goToAIInterview());
-  const onSecondary = () => navigate(isCompany ? "/platform/iaem" : UPLOAD_PATH);
 
 
   /* 🔧 SEARCH REDIRECT — the popup results modal is gone. Searching now
@@ -531,7 +545,7 @@ export default function HeroSection() {
             {/* Left — heading, copy, underline search */}
             <Box sx={{
               flex: 1, minWidth: 0, display: "flex", flexDirection: "column",
-              justifyContent: { xs: "center", md: "flex-start" }, pt: { xs: 5, md: 4 }, pb: { md: 10 },
+             justifyContent: { xs: "center", md: "flex-start" }, pt: { xs: 5, md: 4 }, pb: { md: 4 },
               pl: { md: 6, lg: 10 },
             }}>
               {/* Jobseekers / Companies toggle */}
@@ -560,21 +574,7 @@ export default function HeroSection() {
                 </Box>
               </FadeUp>
 
-              {/* trust badges */}
-              <FadeUp delay={0.05}>
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2.25 }}>
-                  {HERO_BADGES.map(b => (
-                    <Box key={b} component="span" sx={{
-                      display: "inline-flex", alignItems: "center", gap: 0.625,
-                      px: 1.5, py: 0.625, borderRadius: 999, bgcolor: "rgba(255,255,255,0.7)",
-                      fontFamily: FONT, fontSize: 13, fontWeight: 600, color: C.ink,
-                    }}>
-                      <Box component="span" aria-hidden="true" sx={{ color: C.sageDark, fontWeight: 800 }}>✓</Box>
-                      {b}
-                    </Box>
-                  ))}
-                </Box>
-              </FadeUp>
+              
 
               <HeroQuoteRotator
                 quotes={V.quotes} idx={qIdx} quoteKey={`${view}-${qIdx}`}
@@ -589,90 +589,90 @@ export default function HeroSection() {
                   to:   { opacity: 1, transform: "translateY(0)" },
                 },
               }}>
-                <Typography sx={{
+                 <Typography sx={{
                   fontFamily: FONT, fontSize: { xs: 15, md: 17 }, lineHeight: 1.55,
                   color: "#3E4642", mt: 2.5, maxWidth: 580,
                 }}>
                   {V.sub}
                 </Typography>
+              </Box>
 
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, mt: 3 }}>
-                  <Box component="button" type="button" onClick={onPrimary} sx={{
-                    appearance: "none", border: 0, cursor: "pointer", borderRadius: 999,
-                    px: 3, py: 1.75, bgcolor: C.ink, color: "#fff",
-                    fontFamily: FONT, fontSize: 15, fontWeight: 700,
-                    transition: REDUCED ? "none" : "transform .2s, box-shadow .2s",
-                    "&:hover": { transform: "translateY(-2px)", boxShadow: "0 10px 24px rgba(31,31,31,0.2)" },
-                    "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
-                  }}>
-                    {V.primary}
-                  </Box>
-                  <Box component="button" type="button" onClick={onSecondary} sx={{
-                    appearance: "none", border: 0, cursor: "pointer", borderRadius: 999,
-                    px: 3, py: 1.75, bgcolor: "#fff", color: C.ink,
-                    fontFamily: FONT, fontSize: 15, fontWeight: 700,
-                    transition: REDUCED ? "none" : "transform .2s",
-                    "&:hover": { transform: "translateY(-2px)" },
-                    "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
-                  }}>
-                    {V.secondary}
-                  </Box>
+              {/* ── How iEvalX works — smooth-scrolls to the "How Hiring Works on iEvalX" section ── */}
+              <Box
+                component="a"
+                href="#how-it-works"
+                onClick={(e) => {
+                  e.preventDefault();
+                  /* LandingPage passes onHowItWorks → scrolls via the section's howRef */
+                  if (onHowItWorks) { onHowItWorks(); return; }
+                  /* fallback: scroll by id (works if HeroSection is used elsewhere) */
+                  document.getElementById("how-it-works")
+                    ?.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
+                }}
+                sx={{
+                  alignSelf: "flex-start", mt: 2.5,
+                  display: "inline-flex", alignItems: "center", gap: 1,
+                  fontFamily: FONT, fontSize: 15, fontWeight: 600, color: C.sageDark,
+                  textDecoration: "none", borderRadius: 1,
+                  "&:hover": { textDecoration: "underline", textUnderlineOffset: "3px" },
+                  "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 3 },
+                }}
+              >
+                <Box component="span" aria-hidden="true" sx={{
+                  width: 24, height: 24, borderRadius: "50%", bgcolor: C.sageDark, color: "#fff",
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 9, pl: "2px", flexShrink: 0,
+                }}>▶</Box>
+                See how iEvalX works
+                <Box component="span" aria-hidden="true">→</Box>
+              </Box>
+
+              {/* ── SEARCH + CHIPS — right under the description, both views.
+                     Stretches past the left column so the bar is long. ── */}
+              <Box sx={{
+                position: "relative", zIndex: 7,
+                mt: { xs: 3, md: 6 },
+                width: { xs: "100%", md: "calc(100% + 120px)", lg: "calc(100% + 200px)" },
+                maxWidth: 1000,
+              }}>
+                {/* search bar */}
+                <Box sx={{ width: "100%", "& > *": { width: "100%", maxWidth: "none" } }}>
+                  <JobSearchBar onSearch={goToResults} />
                 </Box>
 
-                {isCompany ? (
-                  /* company view — feature chips in place of the job search */
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.25, mt: 3, maxWidth: 660 }}>
-                    {HERO_FEATURES.map(f => (
-                      <Box
-                        key={f.label} component="button" type="button"
-                        onClick={() => navigate(f.to)}
-                        sx={{
-                          appearance: "none", cursor: "pointer", minHeight: 40,
-                          display: "inline-flex", alignItems: "center", gap: 0.5,
-                          bgcolor: "rgba(255,255,255,0.85)", border: "1px solid rgba(31,31,31,0.06)",
-                          borderRadius: "12px", px: 1.75, py: 0.875,
-                          fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink,
-                          boxShadow: "0 4px 14px rgba(31,31,31,0.04)",
-                          transition: REDUCED ? "none" : "background-color .2s, transform .2s",
-                          "&:hover": { bgcolor: "#fff", transform: "translateY(-2px)" },
-                          "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
-                        }}
-                      >
-                        {f.label}
-                        <Box component="span" aria-hidden="true" sx={{ color: C.sage, fontSize: 16, lineHeight: 1 }}>›</Box>
-                      </Box>
-                    ))}
-                  </Box>
-                ) : (
-                  /* jobseeker view — job search + popular searches (unchanged behaviour) */
-                  <>
-                    <Box sx={{ mt: 3 }}>
-                      <JobSearchBar onSearch={goToResults} />
+                {/* chips — popular searches (jobseekers) / feature links (companies) */}
+                <Box key={view} sx={{
+                  display: "flex", flexWrap: "wrap", gap: 1.25, mt: 2,
+                  animation: REDUCED ? "none" : "heroChipsIn .5s cubic-bezier(0.22,1,0.36,1) both",
+                  "@keyframes heroChipsIn": {
+                    from: { opacity: 0, transform: "translateY(8px)" },
+                    to:   { opacity: 1, transform: "translateY(0)" },
+                  },
+                }}>
+                  {(isCompany
+                    ? HERO_FEATURES.map(f => ({ label: f.label, go: () => navigate(f.to) }))
+                    : POPULAR_SEARCHES.map(s => ({ label: s.label, go: () => navigate(`/jobs?${new URLSearchParams(s.params).toString()}`) }))
+                  ).map(chip => (
+                    <Box
+                      key={chip.label} component="button" type="button"
+                      onClick={chip.go}
+                      sx={{
+                        appearance: "none", cursor: "pointer", minHeight: 38,
+                        display: "inline-flex", alignItems: "center", gap: 0.5,
+                        bgcolor: "rgba(255,255,255,0.85)", border: "1px solid rgba(31,31,31,0.06)",
+                        borderRadius: "12px", px: 1.75, py: 0.75,
+                        fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink,
+                        boxShadow: "0 4px 14px rgba(31,31,31,0.04)",
+                        transition: REDUCED ? "none" : "background-color .2s, transform .2s",
+                        "&:hover": { bgcolor: "#fff", transform: "translateY(-2px)" },
+                        "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
+                      }}
+                    >
+                      {chip.label}
+                      <Box component="span" aria-hidden="true" sx={{ color: C.sage, fontSize: 16, lineHeight: 1 }}>›</Box>
                     </Box>
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.25, mt: 2.5, maxWidth: 660 }}>
-                      {POPULAR_SEARCHES.map(s => (
-                        <Box
-                          key={s.label} component="button" type="button"
-                          onClick={() => navigate(`/jobs?${new URLSearchParams(s.params).toString()}`)}
-                          sx={{
-                            appearance: "none", cursor: "pointer", minHeight: 40,
-                            display: "inline-flex", alignItems: "center", gap: 0.5,
-                            bgcolor: "rgba(255,255,255,0.85)", border: "1px solid rgba(31,31,31,0.06)",
-                            borderRadius: "12px", px: 1.75, py: 0.875,
-                            fontFamily: FONT, fontSize: 14, fontWeight: 600, color: C.ink,
-                            boxShadow: "0 4px 14px rgba(31,31,31,0.04)",
-                            transition: REDUCED ? "none" : "background-color .2s, transform .2s",
-                            "&:hover": { bgcolor: "#fff", transform: "translateY(-2px)" },
-                            "&:focus-visible": { outline: `2px solid ${C.sageDark}`, outlineOffset: 2 },
-                          }}
-                        >
-                          {s.label}
-                          <Box component="span" aria-hidden="true" sx={{ color: C.sage, fontSize: 16, lineHeight: 1 }}>›</Box>
-                        </Box>
-                      ))}
-                    </Box>
-                  </>
-                )}
+                  ))}
+                </Box>
               </Box>
 
             </Box>
@@ -699,18 +699,9 @@ export default function HeroSection() {
 
                 {/* jobseeker cards */}
                 {!isCompany && <HiredStatCard />}
-                <HeroInfoCard show={!isCompany} sx={{ width: 235, left: "-28%", top: "12%" }}>
-                  <CardTitle icon="🔍">IRS: Resume Score</CardTitle>
-                  <CardText>Scored against the last 100 same-skill JDs.</CardText>
-                  <CardText sx={{ color: C.ink, fontWeight: 600, mt: 1 }}>Missing: Docker · REST APIs · SQL</CardText>
-                </HeroInfoCard>
-                <CirScoreCard show={!isCompany} sx={{ right: "-10%", top: "66%" }} />
+                <ScoreCard show={!isCompany} isCompany={false} sx={{ right: "-10%", top: "60%" }} />
 
                 {/* company cards */}
-                <HeroInfoCard show={isCompany} sx={{ width: 250, left: "-22%", top: "12%" }}>
-                  <CardTitle icon="🔍">IRS: Instant Match</CardTitle>
-                  <CardText>Post a JD, get matched CVs instantly, ranked by Quick Interview score, location and salary.</CardText>
-                </HeroInfoCard>
                 <HeroInfoCard show={isCompany} glow sx={{
                   width: 240, p: "16px 18px", left: { md: "-20%", lg: "-24%", xl: "-50%" }, top: { md: "40%", xl: "38%" },
                 }}>
@@ -742,13 +733,13 @@ export default function HeroSection() {
                     ))}
                   </Box>
                 </HeroInfoCard>
-                <CirScoreCard show={isCompany} sx={{ right: "-10%", top: "76%" }} />
+                <ScoreCard show={isCompany} isCompany sx={{ right: "-10%", top: "64%" }} />
               </Box>
             </Box>
           </Stack>
 
           {/* trust bar */}
-          <FadeUp delay={0.35} sx={{ mt: { xs: 2, md: 1 }, mb: { xs: 0, md: 13 }, mx: { md: 6, lg: 10 }, position: "relative", zIndex: 4 }}>
+          <FadeUp delay={0.35} sx={{ mt: { xs: 4, md: 5 }, mb: { xs: 0, md: 13 }, mx: { md: 6, lg: 10 }, position: "relative", zIndex: 4 }}>
             <Box sx={{
               display: "grid", gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" },
               bgcolor: "#fff", borderRadius: "16px", overflow: "hidden",

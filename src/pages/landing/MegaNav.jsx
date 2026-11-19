@@ -46,6 +46,14 @@ const NAV_CSS = {
     color: C.ink, display: "inline-flex", alignItems: "center", whiteSpace: "nowrap",
   },
   ".ievalx-i": { position: "relative", display: "inline-block" },
+  /* logo + tagline stacked */
+  ".mega-logo-stack": {
+    display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 4,
+  },
+  ".mega-tagline": {
+    fontFamily: FONT, fontSize: 11.5, fontWeight: 500, lineHeight: 1.2,
+    letterSpacing: "0.02em", color: C.muted, whiteSpace: "nowrap",
+  },
   ".ievalx-dot": {
     position: "absolute", left: "50%", top: "0.03em", transform: "translateX(-50%)",
     width: "0.21em", height: "0.21em", borderRadius: "50%",
@@ -371,6 +379,7 @@ const NAV_CSS = {
     ".mega-auth-btn": { padding: "0 14px", fontSize: 14 },
   },
   "@media (max-width: 480px)": {
+    ".mega-tagline": { display: "none" },
     ".mega-bar": { height: 64, padding: "0 12px", gap: 8 },
     ".mega-logo": { fontSize: 22 },
     ".mega-cta": { height: 40, padding: "0 15px", fontSize: 13.5 },
@@ -609,7 +618,10 @@ export default function MegaNav({ sections, onLogoClick, ctaLabel = "Sign  In", 
             role="link" tabIndex={0} aria-label="IEvalx home"
             onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); runLink(onLogoClick); } }}
           >
-            <span className="ievalx-wm"><span className="ievalx-i">&#305;<span className="ievalx-dot" /></span>evalx</span>
+            <span className="mega-logo-stack">
+              <span className="ievalx-wm"><span className="ievalx-i">&#305;<span className="ievalx-dot" /></span>evalx</span>
+              <span className="mega-tagline">Real Talent. Fair Process. Trusted Outcomes.</span>
+            </span>
           </div>
 
           {/* desktop section links — hover opens the shared panel */}

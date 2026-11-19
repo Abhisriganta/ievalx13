@@ -78,7 +78,7 @@ export default function JobSearchBar({ onSearch, initial = {} }) {
         position: "relative",
         display: "flex", alignItems: "center",
         flexWrap: { xs: "wrap", md: "nowrap" },
-        width: "100%", maxWidth: 780,
+        width: "100%", maxWidth: 920,
         bgcolor: "#fff",
         borderRadius: { xs: "26px", md: "999px" },
         boxShadow: "0 18px 50px rgba(2,33,36,0.10)",

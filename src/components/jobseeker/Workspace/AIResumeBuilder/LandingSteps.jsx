@@ -84,7 +84,7 @@ function LandingNav({ onLogoClick, onBack, isDark, onToggleDark }) {
                 letterSpacing: ".02em", lineHeight: 1,
                 display: { xs: "none", md: "block" },
               }}>
-                AI resume builder
+                 resume builder
               </Typography>
             </Box>
           </Box>
