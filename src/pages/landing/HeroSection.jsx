@@ -9,6 +9,7 @@ import heroPersonArt from "../../assets/images/Herosection.png";
 import JobSearchBar from "./JobSearchBar";
 
 
+
 /* Headline jobs figure on the stat card — one place to change it. */
 const HERO_JOBS_STAT = { value: 5, suffix: " lakh+", label: "Jobs to explore", icon: "💼" };
 
@@ -87,6 +88,9 @@ const HERO_COMPANY_LOGOS = [
   { name: "Microsoft",             domain: "microsoft.com", fallback: "#5E5E5E" },
   { name: "Lanciere Technologies", src: "/lanciere-logo.png", fallback: "#1E88E5" },
   { name: "Amazon",                domain: "amazon.com",    fallback: "#FF9900" },
+  { name: "Wells Fargo",           domain: "wellsfargo.com", fallback: "#D71E28" },
+  { name: "Accenture",             domain: "accenture.com", fallback: "#A100FF" },
+  { name: "JPMorgan",              domain: "jpmorgan.com",  fallback: "#003A70" },
 ];
 const QUOTE_MS = 4600;
 
@@ -509,10 +513,10 @@ export default function HeroSection({ onHowItWorks }) {
 
             {/* company logo circles seated on the ribbon crests */}
             {[
-              { co: HERO_COMPANY_LOGOS[0], sx: { left: "1%",  top: "27%" }, d: 0 },
-              { co: HERO_COMPANY_LOGOS[1], sx: { left: "30%", top: "16%" }, d: 0.7 },
-              { co: HERO_COMPANY_LOGOS[2], sx: { left: "70%", top: "13%" }, d: 1.4 },
-              { co: HERO_COMPANY_LOGOS[3], sx: { left: "88%", top: "36%" }, d: 2.1 },
+              { co: HERO_COMPANY_LOGOS[0], sx: { left: "4%",  top: "27%" }, d: 0 },
+              { co: HERO_COMPANY_LOGOS[1], sx: { left: "18%", top: "16%" }, d: 0.5 },
+              { co: HERO_COMPANY_LOGOS[2], sx: { left: "80%", top: "12%" }, d: 1.4 },
+              { co: HERO_COMPANY_LOGOS[3], sx: { left: "92%", top: "40%" }, d: 2.6 },
             ].map(({ co, sx, d }) => (
               <Box key={co.name} title={co.name} sx={{
                 position: "absolute", ...sx, zIndex: 5, pointerEvents: "auto",

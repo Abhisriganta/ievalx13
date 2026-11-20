@@ -229,4 +229,148 @@ export const FEATURE_PAGES = {
       "Job portals check candidates and stop there. With IAEM, every hiring decision has an audit trail behind it.",
     closing: { title: "Hiring you can audit, end to end.", desc: "See how IAEM fits your hiring team." },
   },
+
+  /* ── Assessment Builder ─────────────────────────────────────────────── */
+  "assessment-builder": {
+    eyebrow: "Assessment Builder",
+    title: "Build Assessments from Scratch or Let AI Generate Them in Minutes.",
+    subtitle:
+      "Two builders in one: a manual builder for full control over every question, and an AI builder that generates a complete test from your role, level and topic documents.",
+    cta: { label: "Post a Job", action: "postJob" },
+    whatItIs:
+      "Every hiring pipeline needs a test. The Assessment Builder lets you create one yourself with the Manual Builder, or let AI generate the whole thing with the AI Builder. Upload topic documents to guide what gets tested. Either way, you review and approve before anything reaches a candidate.",
+    steps: [
+      { title: "Choose your builder", desc: "Manual for full control, AI for speed. Use both on the same job if you like." },
+      { title: "Configure the test", desc: "Enter job role, experience level, upload topic documents, then set sections with question types, counts and time limits." },
+      { title: "Review and approve", desc: "Every question is editable. AI-generated tests stay in draft until you approve." },
+      { title: "Assign to candidates", desc: "The assessment becomes a round in your hiring pipeline, proctored automatically." },
+    ],
+    stepsTitle: "From Configuration to Live Test",
+    blocks: [
+      {
+        type: "cards",
+        eyebrow: "AI Assessment Builder",
+        title: "Set a Role and Level. Get a Full Test.",
+        intro: "Enter the job role and experience level, upload topic documents or type the topics to cover, and AI generates a complete assessment you can edit before it goes live.",
+        items: [
+          { title: "Role + level + topics",     desc: "Questions are built from the job role, experience level and your uploaded topic documents — not a generic bank." },
+          { title: "Regenerate any question",    desc: "Don't like one? Regenerate just that question or an entire section without touching the rest." },
+          { title: "Version history",            desc: "Every draft is saved. Roll back to any previous version if you change your mind." },
+          { title: "Approve and go live",        desc: "Nothing reaches candidates until you review every question and hit approve." },
+        ],
+      },
+      {
+        type: "cards",
+        eyebrow: "Manual Assessment Builder",
+        title: "Full Control Over Every Question",
+        intro: "Build your own test from scratch, section by section, with the question types that fit the role.",
+        items: [
+          { title: "Multiple question types",    desc: "Multiple choice, scenario-based, written answers and coding questions." },
+          { title: "In-browser coding editor",   desc: "Candidates write and run code in Python, Java, JavaScript, C++ or SQL, with visible and hidden test cases." },
+          { title: "Section timers",             desc: "Set time limits per section so candidates can't spend the whole test on one part." },
+          { title: "Question Bank",              desc: "Save questions to a reusable bank. Pull them into future assessments without rewriting." },
+        ],
+      },
+      {
+        type: "cards",
+        eyebrow: "Document Extraction",
+        title: "Already Have Questions? Upload Them.",
+        items: [
+          { title: "Upload a document",          desc: "Upload a PDF, Word doc or text file with your existing questions." },
+          { title: "AI extracts the questions",   desc: "Questions, options and correct answers are pulled out automatically." },
+          { title: "Review and approve",         desc: "Edit anything the extraction missed, then approve the whole set." },
+        ],
+      },
+    ],
+    benefits: [
+      "AI-generated tests ready in minutes, not days",
+      "Manual builder for roles that need hand-crafted questions",
+      "Built-in coding editor with multi-language support",
+      "Every assessment is automatically proctored with 35+ checks",
+      "Reusable Question Bank across all your jobs",
+      "Human and AI evaluation of coding and written answers",
+    ],
+    different:
+      "Most platforms give you a question bank and a timer. iEvalX gives you two builders — one that generates a test from your role, level and topics, and one that gives you full control — both proctored and scored automatically.",
+    closing: { title: "Your next test is a few clicks away.", desc: "Set a role, pick an experience level, and have a proctored assessment ready in minutes." },
+  },
+
+  /* ── Proctoring and Security ────────────────────────────────────────── */
+  "proctoring-security": {
+    eyebrow: "Proctoring and Security",
+    title: "35+ Checks. Every Assessment. Every AI Interview. Every Time.",
+    subtitle:
+      "Face verification, voice verification, gaze tracking, tab monitoring, device scanning and more — running silently in every proctored session so honest candidates aren't outscored by shortcuts.",
+    cta: { label: "Talk to Us", action: "contact" },
+    whatItIs:
+      "Proctoring on iEvalX isn't a single webcam check. It's 35+ continuous checks across identity, surroundings, browser and device, running from the moment a session starts to the moment it ends. Every session gets a risk score from 0 to 100 and a timeline of exactly what happened.",
+    steps: [
+      { title: "Pre-check gate", desc: "Before the test starts, the candidate's face is matched against their enrolled photo. No match, no entry." },
+      { title: "Continuous monitoring", desc: "35+ checks run throughout the session — face, voice, gaze, tab switches, fullscreen exits, copy-paste, dev tools, second screens." },
+      { title: "Risk score generated", desc: "Each session ends with a 0–100 risk score and a snapshot timeline showing what happened and when." },
+      { title: "Employer reviews", desc: "High-risk sessions are flagged. Employers see the evidence, not just a label." },
+    ],
+    stepsTitle: "How Proctoring Works",
+    blocks: [
+      {
+        type: "cards",
+        eyebrow: "Identity Verification",
+        title: "Know Who's Taking the Test",
+        items: [
+          { title: "Face enrollment at registration", desc: "Candidates register their face with InsightFace when they create their account. This is the reference for every future session." },
+          { title: "Voice enrollment",                desc: "A voice sample is recorded at registration for voice verification during sessions." },
+          { title: "Live face match",                 desc: "Before every session, a live face check is matched against the enrolled photo. Failed match blocks entry." },
+          { title: "Continuous face tracking",        desc: "Face presence and identity are checked throughout — if the face disappears or changes, it's flagged." },
+        ],
+      },
+      {
+        type: "cards",
+        eyebrow: "35+ Checks",
+        title: "What's Monitored During Every Session",
+        items: [
+          { title: "Face and gaze",         desc: "Face present, face matches enrolled photo, gaze direction, head pose, multiple faces in frame." },
+          { title: "Voice",                 desc: "Voice matched against enrolled sample. Second voice detection." },
+          { title: "Browser behaviour",     desc: "Tab switches, fullscreen exits, copy-paste attempts, developer tools, right-click." },
+          { title: "Device integrity",      desc: "Remote desktop tools, virtual cameras, virtual machines, hidden overlay windows, second monitors." },
+          { title: "Environment",           desc: "Phone in frame, book in frame, another person in frame, background noise analysis." },
+          { title: "Native agent",          desc: "Optional desktop agent for deeper device scanning — heartbeat, batch violation reporting, session binding." },
+        ],
+      },
+      {
+        type: "cards",
+        eyebrow: "Risk Scoring",
+        title: "A Score, Not Just a Flag",
+        intro: "Every session ends with a clear risk score and a full timeline, so employers make decisions based on evidence.",
+        items: [
+          { title: "Risk score 0–100",      desc: "One clear number summarising the session's integrity. Higher means more violations." },
+          { title: "Snapshot timeline",      desc: "A chronological record of every event — what happened, when, and what the candidate's screen looked like." },
+          { title: "Violation escalation",   desc: "Violations are ranked by severity. Repeated low-severity events escalate automatically." },
+          { title: "Live warnings",          desc: "Candidates see a warning before anything counts against them. No silent gotchas." },
+        ],
+      },
+      {
+        type: "checklist",
+        eyebrow: "Where It Runs",
+        title: "Proctoring Covers Every Evaluated Session",
+        items: [
+          "AI assessments (manual and AI-generated)",
+          "AI interview rounds",
+          "Quick Interview (10-minute standalone)",
+          "Campus drive sessions",
+          "Document-based interview rounds",
+        ],
+      },
+    ],
+    benefits: [
+      "Honest candidates keep their honest score",
+      "Employers see evidence, not just a pass/fail flag",
+      "Candidates get live warnings, not silent traps",
+      "Same 35+ checks whether it's one candidate or a campus batch of 500",
+      "Face and voice enrolled once, verified in every session",
+      "Risk scores sit beside every result in the hiring pipeline",
+    ],
+    different:
+      "Most proctoring is a webcam snapshot and a tab-switch counter. iEvalX runs 35+ checks covering identity, voice, gaze, browser, device and environment — continuously, with a scored timeline, in every proctored session on the platform.",
+    closing: { title: "Fair tests. Verified results. No shortcuts.", desc: "Every assessment and AI interview on iEvalX is proctored automatically." },
+  },
 };

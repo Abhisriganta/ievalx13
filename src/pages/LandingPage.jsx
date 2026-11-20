@@ -56,6 +56,72 @@ const LandingPage = () => {
     ref?.current?.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
 
   const SECTIONS = [
+    /* ── 1. JOBS (moved to first — instant job-portal signal) ── */
+    {
+      label: "Jobs", match: ["/jobs", "/categories"],
+      groups: [
+        { head: "Find work", links: [
+          { label: "Browse jobs",       onClick: () => navigate("/jobs") },
+          { label: "Jobs by industry",  onClick: () => navigate("/categories") },
+          { label: "Featured openings", onClick: () => scrollTo(jobsRef) },
+        ]},
+        { head: "Employers", links: [
+          { label: "Post a job",         onClick: () => navigate("/auth?view=register-company") },
+          { label: "Run a campus drive", onClick: () => navigate("/services/campus-drive") },
+        ]},
+      ],
+      featured: {
+        title: liveCount == null
+          ? "Verified openings live"
+          : `${liveCount} verified opening${liveCount === 1 ? "" : "s"} live`,
+        desc: "Every role is approved by a verified company. Apply with your CIR, not just your CV.",
+        cta: "Browse jobs", onClick: () => navigate("/jobs"),
+      },
+    },
+    /* ── 2. PLATFORM (added missing seeker + employer features) ── */
+    {
+      label: "Platform", match: ["/platform"],
+      groups: [
+        { head: "For job seekers", links: [
+          { label: "Quick Interview",       onClick: () => navigate("/platform/quick-interview") },
+          { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
+          { label: "IRS Resume Builder", onClick: () => navigate("/platform/resume-builder") },
+        ]},
+        { head: "For companies", links: [
+          { label: "Hiring Pipeline",        onClick: () => navigate("/platform/hiring-pipeline") },
+          { label: "IAEM Interviewer Audit", onClick: () => navigate("/platform/iaem") },
+          { label: "Assessment Builder",       onClick: () => navigate("/platform/assessment-builder") },
+          { label: "Proctoring and Security", onClick: () => navigate("/platform/proctoring-security") },
+        ]},
+      ],
+      featured: {
+        title: "One interview. Six scores. Zero guesswork.",
+        desc: "Skill-gap search, 10-minute AI interviews, verified CIR scores and audited interviewers.",
+        cta: "See how it works", onClick: () => scrollTo(howRef),
+      },
+    },
+    /* ── 3. SERVICES (added proctoring, background verification, campus drives) ── */
+    {
+      label: "Services", match: ["/support", "/services"],
+      groups: [
+        { head: "For candidates", links: [
+          { label: "AI Interviews",         onClick: () => navigate("/services/ai-interviews") },
+          { label: "Assessments",           onClick: () => navigate("/services/assessments") },
+          { label: "Book a live interview", onClick: () => navigate("/services/live-interviews") },
+        ]},
+        { head: "For employers", links: [
+  { label: "Employer suite",       onClick: () => navigate("/services/employer-suite") },
+  { label: "Interviewers",         onClick: () => navigate("/services/employer-suite") },
+  { label: "Compliance and audit", onClick: () => navigate("/services/compliance") },
+]},
+      ],
+      featured: {
+        title: "Shortlist in hours, not weeks",
+        desc: "Ranked applicants, CIR scores and auto-advance rounds for hiring teams.",
+        cta: "Get started", onClick: () => navigate("/auth?view=register-company"),
+      },
+    },
+    /* ── 4. COMPANY (moved to last) ── */
     {
       label: "Company", match: ["/our-story", "/what-we-offer", "/blogs"],
       groups: [
@@ -73,66 +139,6 @@ const LandingPage = () => {
         title: "Hiring you can audit",
         desc: "Every interview scored, every interviewer reviewed. Read why we built iEvalX.",
         cta: "Our Story", onClick: () => navigate("/our-story"),
-      },
-    },
-    {
-      label: "Platform", match: ["/platform"],
-      groups: [
-        { head: "For job seekers", links: [
-          { label: "Quick Interview",       onClick: () => navigate("/platform/quick-interview") },
-          { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
-          { label: "IRS based Resume Builder",     onClick: () => navigate("/platform/resume-builder") },
-        ]},
-        { head: "For companies", links: [
-          { label: "Hiring Pipeline",        onClick: () => navigate("/platform/hiring-pipeline") },
-          { label: "IAEM Interviewer Audit", onClick: () => navigate("/platform/iaem") },
-        ]},
-      ],
-      featured: {
-        title: "One interview. Six scores. Zero guesswork.",
-        desc: "Skill-gap search, 10-minute AI interviews, verified CIR scores and audited interviewers.",
-        cta: "See how it works", onClick: () => scrollTo(howRef),
-      },
-    },
-    {
-      label: "Jobs", match: ["/jobs", "/categories"],
-      groups: [
-        { head: "Find work", links: [
-          { label: "Browse jobs",       onClick: () => navigate("/jobs") },
-          { label: "Jobs by industry",  onClick: () => navigate("/categories") },
-          { label: "Featured openings", onClick: () => scrollTo(jobsRef) },
-        ]},
-        { head: "Employers", links: [
-          { label: "Post a job",        onClick: () => navigate("/auth?view=register-company") },
-          { label: "Run a campus drive", onClick: () => navigate("/services/campus-drive") },
-        ]},
-      ],
-      featured: {
-        title: liveCount == null
-          ? "Verified openings live"
-          : `${liveCount} verified opening${liveCount === 1 ? "" : "s"} live`,
-        desc: "Every role is approved by a verified company. Apply with your CIR, not just your CV.",
-        cta: "Browse jobs", onClick: () => navigate("/jobs"),
-      },
-    },
-    {
-      label: "Services", match: ["/support", "/services"],
-      groups: [
-        { head: "For candidates", links: [
-          { label: "AI Interviews",        onClick: () => navigate("/services/ai-interviews") },
-          { label: "Assessments",          onClick: () => navigate("/services/assessments") },
-          { label: "Book a live interview", onClick: () => navigate("/services/live-interviews") },
-        ]},
-        { head: "For employers", links: [
-          { label: "Employer suite",       onClick: () => navigate("/services/employer-suite") },
-          { label: "Compliance and audit", onClick: () => navigate("/services/compliance") },
-          { label: "Talk to us",           onClick: () => navigate("/support") },
-        ]},
-      ],
-      featured: {
-        title: "Shortlist in hours, not weeks",
-        desc: "Ranked applicants, CIR scores and auto-advance rounds for hiring teams.",
-        cta: "Get started", onClick: () => navigate("/auth?view=register-company"),
       },
     },
   ];
