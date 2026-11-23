@@ -27,8 +27,8 @@ export default function FaqSection() {
               Frequently Asked Questions
             </Typography>
             <Typography sx={{ fontFamily: FONT, fontSize: 14.5, color: C.muted, mt: 2, lineHeight: 1.75, maxWidth: 380 }}>
-              Everything about AI interviews, CIR scores and how verified hiring
-              works on IEvalx.
+              Everything about AI interviews, IRS and CIR scores, proctoring,
+              privacy and how verified hiring works on IEvalx.
             </Typography>
             <Box sx={{
               mt: 3.5, bgcolor: "#fff", border: `1px solid ${C.line}`, borderRadius: "16px",

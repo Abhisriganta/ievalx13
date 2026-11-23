@@ -90,17 +90,7 @@ export const ARTICLES = [
     title: "Cutting time-to-hire: what the data says about AI-scored pipelines" },
 ];
 
-export const PLANS = [
-  { name: "Starter", tagline: "For getting started", m: 0, y: 0,
-    features: ["2 AI interviews / month", "Basic skill assessments", "Public profile page", "Community support"],
-    cta: "Start Free" },
-  { name: "Pro", tagline: "For serious jobseekers", m: 499, y: 399, popular: true,
-    features: ["Unlimited AI interviews", "CIR score & verified badge", "Priority job matching", "Detailed feedback reports", " interview library"],
-    cta: "Go Pro" },
-  { name: "Teams", tagline: "For hiring teams", m: 1999, y: 1599,
-    features: ["25 recruiter seats", "AI-scored pipelines", "Bulk assessments", "Analytics dashboard", "Dedicated support"],
-    cta: "Contact Sales" },
-];
+
 
 export const FAQS = [
   { q: "How does the AI interview work?",

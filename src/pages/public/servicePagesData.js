@@ -57,7 +57,7 @@ export const SERVICE_PAGES = {
     eyebrow: "Assessments",
     title: "Tests Built for the Job, Guarded for Fairness",
     subtitle:
-      "Take skill assessments made for the exact role you applied to, with coding in a built-in editor and 37 checks that keep every result honest.",
+      "Take skill assessments made for the exact role you applied to, with coding in a built-in editor and 35+ checks that keep every result honest.",
     cta: { label: "Go to My Assessments", action: "assessments" },
     whatItIs:
       "An assessment is a timed test an employer adds to their hiring pipeline. It's built from the job description, so you're tested on what the role actually needs.",
@@ -70,7 +70,7 @@ export const SERVICE_PAGES = {
     blocks: [
       {
         type: "cards",
-        eyebrow: "37-Point Proctoring",
+        eyebrow: "35+ Proctoring Checks",
         title: "What's Checked During Your Test",
         items: [
           { title: "Identity",     desc: "Your face, matched to your profile photo all session. A second voice." },
@@ -88,7 +88,7 @@ export const SERVICE_PAGES = {
       "Honest candidates aren't outscored by shortcuts",
     ],
     different:
-      "Generic tests ask the same questions for every job. iEvalX tests are built from the role you applied to, and 37 checks make sure your honest score stands.",
+      "Generic tests ask the same questions for every job. iEvalX tests are built from the role you applied to, and 35+ checks make sure your honest score stands.",
     closing: { title: "Show what you can do, on a test that's fair to everyone.", desc: "Your assessments are waiting in your dashboard." },
   },
 
@@ -206,7 +206,7 @@ export const SERVICE_PAGES = {
         eyebrow: "Candidate Integrity",
         title: "Proctoring Evidence You Can Act On",
         items: [
-          { title: "37 checks",         desc: "Across identity, surroundings, browser and device." },
+          { title: "35+ checks",         desc: "Across identity, surroundings, browser and device." },
           { title: "Risk score 0–100",  desc: "One clear number for every session." },
           { title: "Snapshot timeline", desc: "What happened and when, not just a flag." },
         ],
@@ -277,7 +277,7 @@ export const SERVICE_PAGES = {
       {
         type: "callout",
         eyebrow: "Every Session Proctored",
-        title: "37 Checks, Even at Scale",
+        title: "35+ Checks, Even at Scale",
         text: "Identity, surroundings, browser and device are checked in every campus session, so a large batch gets the same integrity as a single hire.",
       },
     ],

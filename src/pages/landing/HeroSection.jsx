@@ -7,7 +7,7 @@ import { FadeUp } from "./primitives";
 import { HERO_PERSON } from "./data";
 import heroPersonArt from "../../assets/images/Herosection.png";
 import JobSearchBar from "./JobSearchBar";
-
+import HeroVideoShowcase from "./HeroVideoShowcase";
 
 
 /* Headline jobs figure on the stat card — one place to change it. */
@@ -345,7 +345,7 @@ function HiredStatCard() {
       ref={ref}
       elevation={0}
       sx={{
-        position: "absolute", left: { xs: -8, md: "-14%" }, top: { xs: "48%", md: "44%" },
+        position: "absolute", left: { md: 0 }, top: { md: 0 }, display: { xs: "none", md: "block" },
         bgcolor: "#fff", borderRadius: 3.5, p: "16px 22px",
         boxShadow: "0 22px 55px rgba(31,49,43,0.18)", zIndex: 6,
         minWidth: 148, textAlign: "center",
@@ -511,33 +511,7 @@ export default function HeroSection({ onHowItWorks }) {
               />
             </Box>
 
-            {/* company logo circles seated on the ribbon crests */}
-            {[
-              { co: HERO_COMPANY_LOGOS[0], sx: { left: "4%",  top: "27%" }, d: 0 },
-              { co: HERO_COMPANY_LOGOS[1], sx: { left: "18%", top: "16%" }, d: 0.5 },
-              { co: HERO_COMPANY_LOGOS[2], sx: { left: "80%", top: "12%" }, d: 1.4 },
-              { co: HERO_COMPANY_LOGOS[3], sx: { left: "92%", top: "40%" }, d: 2.6 },
-            ].map(({ co, sx, d }) => (
-              <Box key={co.name} title={co.name} sx={{
-                position: "absolute", ...sx, zIndex: 5, pointerEvents: "auto",
-                width: 50, height: 50, borderRadius: "50%", bgcolor: "#fff",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 12px 30px rgba(31,49,43,0.18)",
-                opacity: REDUCED ? 1 : 0,
-                animation: REDUCED ? "none"
-                  : `chipPop .6s cubic-bezier(0.34,1.4,0.5,1) ${1.3 + d * 0.2}s forwards, heroFloat 4.5s ease-in-out ${2 + d}s infinite`,
-                "@keyframes chipPop": {
-                  from: { opacity: 0, transform: "scale(0.4) translateY(14px)" },
-                  to:   { opacity: 1, transform: "scale(1) translateY(0)" },
-                },
-                "@keyframes heroFloat": {
-                  "0%,100%": { transform: "translateY(0)" },
-                  "50%":     { transform: "translateY(-9px)" },
-                },
-              }}>
-                <CompanyLogoChip {...co} />
-              </Box>
-            ))}
+
           </Box>
         </Box>
 
@@ -685,29 +659,55 @@ export default function HeroSection({ onHowItWorks }) {
                 illustration is always visible above the partner strip */}
             <Box sx={{
               flex: 1, minWidth: 0, position: "relative",
-              display: "flex", alignItems: "center", justifyContent: "center",
+              display: "flex",
+              alignItems: { xs: "center", md: "flex-start" },
+              justifyContent: { xs: "center", md: "flex-end" },
+              pt: { md: 4 },
             }}>
-              <Box sx={{ position: "relative", mt: { xs: 2, md: 0 }, mb: { xs: 4, md: 7, lg: 8 } }}>
-                {/* dark sage backdrop disc behind the person (reference) */}
-                <Box sx={{
-                  position: "absolute", zIndex: 2,
-                  width: { md: 480, lg: 540 }, height: { md: 480, lg: 540 },
-                  borderRadius: "50%", bgcolor: "rgba(108,139,107,0.55)",
-                  left: "50%", top: "52%", transform: "translate(-50%, -50%)",
-                  display: { xs: "none", md: "block" },
-                }} />
-                {/* Free-standing person — transparent cutout, no frame.
-                    If the cutout PNG fails, we fall back to the arch-framed
-                    stock photo so the hero always renders. */}
-                <HeroPersonImage />
+              <Box sx={{
+                position: "relative", mt: { xs: 2, md: 0 }, mb: { xs: 4, md: 0 },
+                width: { md: 520, lg: 664 }, height: { md: 680 },
+              }}>
+                {/* Landscape video bite — right side, below the top-left card */}
+                <Box sx={{ position: { md: "absolute" }, right: { md: 4 }, top: { md: 220 }, zIndex: 3 }}>
+                  <HeroVideoShowcase src="/videos/hero-bite.mp4" poster="/videos/hero-bite-poster.jpg" />
+                </Box>
+
+                {/* company logo circles — in the free gaps around the video (desktop) */}
+                {[
+                  { co: HERO_COMPANY_LOGOS[0], sx: { left: { md: "52%", lg: "45%" }, top: 30 },  d: 0 },
+                  { co: HERO_COMPANY_LOGOS[1], sx: { left: "71%", top: 110 },                    d: 0.5 },
+                  { co: HERO_COMPANY_LOGOS[2], sx: { left: "90%", top: 30 },                     d: 1.4 },
+                  { co: HERO_COMPANY_LOGOS[3], sx: { left: { md: "4%", lg: "15%" }, top: 340 }, d: 2.6 },
+                ].map(({ co, sx, d }) => (
+                  <Box key={co.name} title={co.name} sx={{
+                    position: "absolute", ...sx, zIndex: 5,
+                    width: 50, height: 50, borderRadius: "50%", bgcolor: "#fff",
+                    display: { xs: "none", md: "flex" }, alignItems: "center", justifyContent: "center",
+                    boxShadow: "0 12px 30px rgba(31,49,43,0.18)",
+                    opacity: REDUCED ? 1 : 0,
+                    animation: REDUCED ? "none"
+                      : `chipPop .6s cubic-bezier(0.34,1.4,0.5,1) ${1.3 + d * 0.2}s forwards, heroFloat 4.5s ease-in-out ${2 + d}s infinite`,
+                    "@keyframes chipPop": {
+                      from: { opacity: 0, transform: "scale(0.4) translateY(14px)" },
+                      to:   { opacity: 1, transform: "scale(1) translateY(0)" },
+                    },
+                    "@keyframes heroFloat": {
+                      "0%,100%": { transform: "translateY(0)" },
+                      "50%":     { transform: "translateY(-9px)" },
+                    },
+                  }}>
+                    <CompanyLogoChip {...co} />
+                  </Box>
+                ))}
 
                 {/* jobseeker cards */}
                 {!isCompany && <HiredStatCard />}
-                <ScoreCard show={!isCompany} isCompany={false} sx={{ right: "-10%", top: "60%" }} />
+                <ScoreCard show={!isCompany} isCompany={false} sx={{ right: -6, top: { md: 472, lg: 495 } }} />
 
                 {/* company cards */}
                 <HeroInfoCard show={isCompany} glow sx={{
-                  width: 240, p: "16px 18px", left: { md: "-20%", lg: "-24%", xl: "-50%" }, top: { md: "40%", xl: "38%" },
+                  width: 240, p: "16px 18px", left: { md: 0 }, top: { md: 0 },
                 }}>
                                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                     <Box component="svg" viewBox="0 0 44 50" aria-hidden="true" sx={{
@@ -737,7 +737,7 @@ export default function HeroSection({ onHowItWorks }) {
                     ))}
                   </Box>
                 </HeroInfoCard>
-                <ScoreCard show={isCompany} isCompany sx={{ right: "-10%", top: "64%" }} />
+                <ScoreCard show={isCompany} isCompany sx={{ right: -6, top: { md: 472, lg: 495 } }} />
               </Box>
             </Box>
           </Stack>
