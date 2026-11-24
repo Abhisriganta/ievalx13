@@ -46,8 +46,14 @@ const HERO_VIEWS = {
       { bold: "Find the Right", accent: "Opportunity.", light: "Show What You're Capable Of." },
       { bold: "Your Skills.",   accent: "Your Score.",  light: "Your Next Opportunity." },
       { bold: "5 Lakh+ Jobs",   accent: "One Search",   light: "At Verified Companies" },
+      { bold: "Earn Your",      accent: "TrueScore.",   light: "Unlock the Career You Deserve." },
     ],
-    sub: "Upload your resume for an instant IRS score, take one AI interview for your CIR, and get matched to real jobs from verified companies. No keyword lottery, no interviewer bias.",
+    subs: [
+      "Upload your resume for an instant |IRS| score, take one AI interview for your |CIR|, and get matched to real jobs at verified companies.",
+      "One |proctored| AI interview scores you on |6 competencies|. Your |CIR| travels with every application — no repeat rounds.",
+      "|IRS| matches your profile to |5 lakh+ jobs| instantly. Every company is verified, every role is |IAEM|-audited.",
+      "Your |CIR| is proof of what you can do. |IAEM|-audited, |proctored|, and bias-free — companies trust it, so should you.",
+    ],
   },
   company: {
     tab: "For Companies",
@@ -55,8 +61,14 @@ const HERO_VIEWS = {
       { bold: "Hire on Proof",           accent: "35+ Checks",                 light: "In Every AI Interview" },
       { bold: "Every Candidate Scored.", accent: "Every Interviewer Audited.", light: "Every Hire Defensible." },
       { bold: "Don't Just Fill",         accent: "Positions.",                 light: "Build the Right Teams." },
+      { bold: "Get 100% of the",        accent: "Outcomes.",                   light: "With 0% of the Efforts." },
     ],
-    sub: "Post a job and IRS brings matched CVs instantly. Candidates take proctored AI rounds, IAEM audits every interviewer, and you shortlist from a ranked, verified list.",
+    subs: [
+      "Every AI interview runs |35+ proctoring checks|. |IAEM| audits the interviewer before you even see the shortlist.",
+      "Every candidate gets a |CIR| score. Every interviewer is |IAEM|-reviewed. Your hiring decision is backed by data, not gut feel.",
+      "|IRS| brings matched CVs the moment you post a JD. Ranked by |CIR| score, filtered by skill — build teams that last.",
+      "Post a JD, |IRS| matches instantly. Candidates complete |proctored| AI rounds, |IAEM| audits every interview — you just pick the best.",
+    ],
   },
 };
 const HERO_VIEW_ORDER = ["seeker", "company"];
@@ -81,18 +93,40 @@ const HERO_TRUST = [
 ];
 
 
-/* Company logo circles seated on the ribbon (Lanciere in Accenture's old spot).
-   `src` overrides the Google favicon lookup — Lanciere uses /public/lanciere-logo.png */
-const HERO_COMPANY_LOGOS = [
-  { name: "Google",                domain: "google.com",    fallback: "#4285F4" },
-  { name: "Microsoft",             domain: "microsoft.com", fallback: "#5E5E5E" },
+/* Company logo circles — swap per toggle.
+   Jobseeker → MNC / service companies + Lanciere.
+   Company   → product-based companies. */
+const HERO_LOGOS_SEEKER = [
+  { name: "Accenture",             domain: "accenture.com",  fallback: "#A100FF" },
+  { name: "Tata",                  domain: "tata.com",       fallback: "#486AAE" },
+  { name: "Wipro",                 domain: "wipro.com",      fallback: "#44225D" },
   { name: "Lanciere Technologies", src: "/lanciere-logo.png", fallback: "#1E88E5" },
-  { name: "Amazon",                domain: "amazon.com",    fallback: "#FF9900" },
-  { name: "Wells Fargo",           domain: "wellsfargo.com", fallback: "#D71E28" },
-  { name: "Accenture",             domain: "accenture.com", fallback: "#A100FF" },
-  { name: "JPMorgan",              domain: "jpmorgan.com",  fallback: "#003A70" },
+  { name: "HCL",                   domain: "hcl.com",     fallback: "#0B57A0" },
+  { name: "CGI",                   domain: "cgi.com",        fallback: "#E31937" },
+  { name: "Deloitte",              domain: "deloitte.com",   fallback: "#86BC25" },
+];
+const HERO_LOGOS_COMPANY = [
+  { name: "Microsoft",   domain: "microsoft.com",  fallback: "#5E5E5E" },
+  { name: "Google",       domain: "google.com",     fallback: "#4285F4" },
+  { name: "Amazon",       domain: "amazon.com",     fallback: "#FF9900" },
+  { name: "Wells Fargo",  domain: "wellsfargo.com", fallback: "#D71E28" },
+  { name: "Oracle",       domain: "oracle.com",     fallback: "#F80000" },
+  { name: "Apple",        domain: "apple.com",      fallback: "#555555" },
+  { name: "SAP",          domain: "sap.com",        fallback: "#008FD3" },
 ];
 const QUOTE_MS = 4600;
+
+/* Render "|keyword|" segments as highlighted spans (sage bold) */
+function HighlightedSub({ text }) {
+  const parts = text.split(/\|([^|]+)\|/);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <Box key={i} component="span" sx={{ fontWeight: 700, color: C.sageDark }}>{part}</Box>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
+}
 
 
 
@@ -311,7 +345,7 @@ function CompanyLogoChip({ name, domain, src, fallback }) {
       color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
       fontFamily: FONT, fontSize: 13, fontWeight: 700,
     }}>
-      {name[0]}
+      {name.length <= 4 ? name : name[0]}
     </Box>
   ) : (
     <Box
@@ -414,7 +448,7 @@ function HiredStatCard() {
   );
 }
 
-export default function HeroSection({ onHowItWorks }) {
+export default function HeroSection({ onHowItWorks, onCompaniesClick }) {
   const navigate = useNavigate();
 
   /* toggle + headline rotation: 3 quotes per view, then the view flips */
@@ -559,8 +593,8 @@ export default function HeroSection({ onHowItWorks }) {
                 onPick={pickQuote} pausedRef={pausedRef} dark={isCompany}
               />
 
-              {/* sub-line + buttons — re-fade on every view switch */}
-              <Box key={view} sx={{
+              {/* sub-line + buttons — re-fade on every view + quote switch */}
+              <Box key={`${view}-${qIdx}`} sx={{
                 animation: REDUCED ? "none" : "heroViewIn .5s cubic-bezier(0.22,1,0.36,1) both",
                 "@keyframes heroViewIn": {
                   from: { opacity: 0, transform: "translateY(10px)" },
@@ -571,7 +605,7 @@ export default function HeroSection({ onHowItWorks }) {
                   fontFamily: FONT, fontSize: { xs: 15, md: 17 }, lineHeight: 1.55,
                   color: "#3E4642", mt: 2.5, maxWidth: 580,
                 }}>
-                  {V.sub}
+                  <HighlightedSub text={V.subs[qIdx]} />
                 </Typography>
               </Box>
 
@@ -668,19 +702,41 @@ export default function HeroSection({ onHowItWorks }) {
                 position: "relative", mt: { xs: 2, md: 0 }, mb: { xs: 4, md: 0 },
                 width: { md: 520, lg: 664 }, height: { md: 680 },
               }}>
-                {/* Landscape video bite — right side, below the top-left card */}
-                <Box sx={{ position: { md: "absolute" }, right: { md: 4 }, top: { md: 220 }, zIndex: 3 }}>
-                  <HeroVideoShowcase src="/videos/hero-bite.mp4" poster="/videos/hero-bite-poster.jpg" />
+                {/* Landscape video bite — right side, below the top-left card.
+                     Swaps per toggle; re-keyed so the component remounts on view change.
+                     TODO: replace company video src once a dedicated clip is ready. */}
+                <Box key={view} sx={{ position: { md: "absolute" }, right: { md: 4 }, top: { md: 220 }, zIndex: 3 }}>
+                  <HeroVideoShowcase
+                    src={isCompany ? "/videos/hero-bite.mp4" : "/videos/hero-bite.mp4"}
+                    poster={isCompany ? "/videos/hero-bite-poster.jpg" : "/videos/hero-bite-poster.jpg"}
+                  />
                 </Box>
 
-                {/* company logo circles — in the free gaps around the video (desktop) */}
-                {[
-                  { co: HERO_COMPANY_LOGOS[0], sx: { left: { md: "52%", lg: "45%" }, top: 30 },  d: 0 },
-                  { co: HERO_COMPANY_LOGOS[1], sx: { left: "71%", top: 110 },                    d: 0.5 },
-                  { co: HERO_COMPANY_LOGOS[2], sx: { left: "90%", top: 30 },                     d: 1.4 },
-                  { co: HERO_COMPANY_LOGOS[3], sx: { left: { md: "4%", lg: "15%" }, top: 340 }, d: 2.6 },
-                ].map(({ co, sx, d }) => (
-                  <Box key={co.name} title={co.name} sx={{
+                {/* company logo circles — swap set per toggle; click scrolls to Top Companies */}
+                {(isCompany ? HERO_LOGOS_COMPANY : HERO_LOGOS_SEEKER).map((co, i) => {
+                  const seekerPositions = [
+                    { sx: { left: { md: "48%", lg: "42%" }, top: 20 },  d: 0 },
+                    { sx: { left: "-20%", top: 10 },                    d: 0.5 },
+                    { sx: { left: "88%", top: 24 },                     d: 1.4 },
+                    { sx: { left: { md: "4%", lg: "12%" }, top: 320 },  d: 2.6 },
+                    { sx: { left: { md: "36%", lg: "34%" }, top: 170 }, d: 0.9 },
+                    { sx: { left: { md: "56%", lg: "68%" }, top: -30 },  d: 1.8 },
+                    { sx: { left: { md: "92%", lg: "92%" }, top: 130 }, d: 2.0 },
+                  ];
+                  const companyPositions = [
+                    { sx: { left: { md: "50%", lg: "44%" }, top: 25 },  d: 0 },
+                    { sx: { left: "72%", top: -40 },                     d: 0.6 },
+                    { sx: { left: "90%", top: 20 },                     d: 1.2 },
+                    { sx: { left: { md: "6%", lg: "4%" }, top: 40 },  d: 2.4 },
+                    { sx: { left: { md: "82%", lg: "94%" }, top: 165 }, d: 1.6 },
+                    { sx: { left: "60%", top: 165 },                    d: 0.8 },
+                    { sx: { left: { md: "16%", lg: "24%" }, top: 150 }, d: 2.0 },
+                  ];
+                  const positions = isCompany ? companyPositions : seekerPositions;
+                  const { sx, d } = positions[i];
+                  return (
+                  <Box key={`${view}-${co.name}`} title={co.name} onClick={onCompaniesClick} sx={{
+                    cursor: "pointer",
                     position: "absolute", ...sx, zIndex: 5,
                     width: 50, height: 50, borderRadius: "50%", bgcolor: "#fff",
                     display: { xs: "none", md: "flex" }, alignItems: "center", justifyContent: "center",
@@ -699,7 +755,8 @@ export default function HeroSection({ onHowItWorks }) {
                   }}>
                     <CompanyLogoChip {...co} />
                   </Box>
-                ))}
+                  );
+                })}
 
                 {/* jobseeker cards */}
                 {!isCompany && <HiredStatCard />}
@@ -707,7 +764,7 @@ export default function HeroSection({ onHowItWorks }) {
 
                 {/* company cards */}
                 <HeroInfoCard show={isCompany} glow sx={{
-                  width: 240, p: "16px 18px", left: { md: 0 }, top: { md: 0 },
+                  width: 210, p: "5px 10px", left: { md: 0, lg: -40 }, top: { md: 190, lg: 160 },
                 }}>
                                     <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
                     <Box component="svg" viewBox="0 0 44 50" aria-hidden="true" sx={{

@@ -27,6 +27,7 @@ const BlogsPage           = lazy(() => import('@/pages/public/BlogsPage'));
 const BlogPostPage        = lazy(() => import('@/pages/public/BlogPostPage'));
 const SupportPage         = lazy(() => import('@/pages/public/SupportPage'));
 const FeaturePage         = lazy(() => import('@/pages/public/FeaturePage'));
+const AboutIevalxPage     = lazy(() => import('@/pages/public/AboutIevalxPage'));
 const ServicePage         = lazy(() => import('@/pages/public/ServicePage'));
 
 /* ── Jobseeker ────────────────────────────────────────────────────────── */
@@ -262,6 +263,7 @@ const AppRouter = () => {
         <Route path="/pricing"     element={<Navigate to="/" replace />} />
         <Route path="/what-we-offer" element={<WhatWeOfferPage />} />
         <Route path="/our-story"   element={<OurStoryPage />} />
+        <Route path="/platform/about-ievalx" element={<AboutIevalxPage />} />
         <Route path="/platform/:slug" element={<FeaturePage />} />
         <Route path="/services/:slug" element={<ServicePage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

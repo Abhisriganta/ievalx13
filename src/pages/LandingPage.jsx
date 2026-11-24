@@ -51,6 +51,7 @@ const LandingPage = () => {
   const jobsRef    = useRef(null);
   const blogRef    = useRef(null);
   const testiRef   = useRef(null);
+  const compRef    = useRef(null);
 
   const scrollTo = (ref) =>
     ref?.current?.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
@@ -82,38 +83,46 @@ const LandingPage = () => {
     {
       label: "Platform", match: ["/platform"],
       groups: [
-        { head: "For job seekers", links: [
-          { label: "Quick Interview",       onClick: () => navigate("/platform/quick-interview") },
-          { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
-          { label: "IRS Resume Builder", onClick: () => navigate("/platform/resume-builder") },
-        ]},
-        { head: "For companies", links: [
-          { label: "Hiring Pipeline",        onClick: () => navigate("/platform/hiring-pipeline") },
-          { label: "IAEM Interviewer Audit", onClick: () => navigate("/platform/iaem") },
-          { label: "Assessment Builder",       onClick: () => navigate("/platform/assessment-builder") },
-          { label: "Proctoring and Security", onClick: () => navigate("/platform/proctoring-security") },
+        { head: "Know the platform", links: [
+          { label: "About iEvalX", onClick: () => navigate("/platform/about-ievalx") },
         ]},
       ],
       featured: {
         title: "One interview. Six scores. Zero guesswork.",
         desc: "Skill-gap search, 10-minute AI interviews, verified CIR scores and audited interviewers.",
-        cta: "See how it works", onClick: () => scrollTo(howRef),
+        cta: "See how it works", onClick: () => navigate("/platform/about-ievalx"),
       },
     },
     /* ── 3. SERVICES (added proctoring, background verification, campus drives) ── */
     {
       label: "Services", match: ["/support", "/services"],
+      wide: true, // 5 link columns (max 4 links each) + featured strip below
       groups: [
-        { head: "For candidates", links: [
+        { head: "For jobseekers", links: [
+          { label: "Quick Interview & CIR", onClick: () => navigate("/platform/quick-interview") },
+          { label: "IRS Resume Builder",    onClick: () => navigate("/platform/resume-builder") },
+          { label: "Instant Job Matches",   onClick: () => navigate("/services/instant-job-matches") },
+          { label: "Application Tracker",   onClick: () => navigate("/services/application-tracker") },
+        ]},
+        { head: "", links: [
+          { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
           { label: "AI Interviews",         onClick: () => navigate("/services/ai-interviews") },
           { label: "Assessments",           onClick: () => navigate("/services/assessments") },
-          { label: "Book a live interview", onClick: () => navigate("/services/live-interviews") },
+          { label: "Live Interviews",       onClick: () => navigate("/services/live-interviews") },
         ]},
-        { head: "For employers", links: [
-  { label: "Employer suite",       onClick: () => navigate("/services/employer-suite") },
-  { label: "Interviewers",         onClick: () => navigate("/services/employer-suite") },
-  { label: "Compliance and audit", onClick: () => navigate("/services/compliance") },
-]},
+        { head: "For companies", links: [
+          { label: "Verified Hiring",       onClick: () => navigate("/services/verified-hiring") },
+          { label: "Employer Suite",        onClick: () => navigate("/services/employer-suite") },
+          { label: "Smart Shortlisting",    onClick: () => navigate("/services/smart-shortlisting") },
+          { label: "Hiring Pipeline",       onClick: () => navigate("/platform/hiring-pipeline") },
+          { label: "Assessment Builder",    onClick: () => navigate("/platform/assessment-builder") },
+        ]},
+        { head: "", links: [
+          { label: "Campus Drive",             onClick: () => navigate("/services/campus-drive") },
+          { label: "Interviewer Suite (IAEM)", onClick: () => navigate("/platform/iaem") },
+          { label: "Compliance Suite",         onClick: () => navigate("/services/compliance") },
+          { label: "Proctoring & Security",    onClick: () => navigate("/platform/proctoring-security") },
+        ]},
       ],
       featured: {
         title: "Shortlist in hours, not weeks",
@@ -171,11 +180,11 @@ const LandingPage = () => {
       {/* ── OFFCANVAS (fixed; outside the clip-path hero wrapper) ── */}
       <OffcanvasPanel open={panelOpen} onClose={() => setPanelOpen(false)} />
 
-      <HeroSection onHowItWorks={() => scrollTo(howRef)} />
+      <HeroSection onHowItWorks={() => scrollTo(howRef)} onCompaniesClick={() => scrollTo(compRef)} />
       <PartnerMarquee />
       <HiringBanner />
       <TopIndustries catRef={catRef} />
-      <TopCompanies />
+      <TopCompanies compRef={compRef} />
       <HowItWorksPreview howRef={howRef} />
       <FeatureJobs jobsRef={jobsRef} />
       <Cta40 />

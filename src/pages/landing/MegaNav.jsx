@@ -262,6 +262,7 @@ const NAV_CSS = {
     borderRadius: 14, padding: "18px 20px", color: "#fff", cursor: "pointer",
     display: "flex", flexDirection: "column", border: "none",
     fontFamily: FONT, textAlign: "left",
+    gridColumn: 3, // always the right-hand column, even when a menu has only one link group
     transition: REDUCED ? "none" : "transform .3s cubic-bezier(0.22,1,0.36,1), box-shadow .3s ease",
   },
   ".mega-featured:hover, .mega-featured:focus-visible": {
@@ -270,6 +271,11 @@ const NAV_CSS = {
   ".mega-featured .ft-title": { fontSize: 16.5, fontWeight: 700, lineHeight: 1.35 },
   ".mega-featured .ft-desc":  { fontSize: 13.5, color: "rgba(255,255,255,0.68)", marginTop: 6, lineHeight: 1.6 },
   ".mega-featured .ft-cta":   { fontSize: 14, fontWeight: 600, color: "#9FE1CB", marginTop: "auto", paddingTop: 14 },
+  /* ── wide panel (sections with `wide: true`, e.g. Services):
+        4 link columns, featured tile kept in the right-hand column ── */
+  ".mega-panel-inner.wide": { gridTemplateColumns: "repeat(4, 1fr) 1.15fr", gap: "4px 20px" },
+  ".mega-panel-inner.wide .mega-col-head": { minHeight: "1.65em" },
+  ".mega-panel-inner.wide .mega-featured": { gridColumn: 5, alignSelf: "start" },
 
   /* ── 3-line hamburger (≤1024px) ── */
   ".mega-burger": {
@@ -826,9 +832,9 @@ export default function MegaNav({ sections, onLogoClick, ctaLabel = "Sign  In", 
           aria-hidden={openIdx === null}
         >
           {active && (
-            <div className="mega-panel-inner" key={active.label}>
-              {active.groups.map(g => (
-                <div key={g.head}>
+            <div className={`mega-panel-inner${active.wide ? " wide" : ""}`} key={active.label}>
+              {active.groups.map((g, gi) => (
+                <div key={`${g.head}-${gi}`}>
                   <div className="mega-col-head">{g.head}</div>
                   {g.links.map(l => (
                     <button key={l.label} type="button" className="mega-col-link" onClick={() => runLink(l.onClick)}>

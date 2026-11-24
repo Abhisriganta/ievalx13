@@ -62,38 +62,46 @@ export default function PublicLayout({ children, _hero }) {
     {
       label: "Platform", match: ["/platform"],
       groups: [
-        { head: "For job seekers", links: [
-          { label: "Quick Interview",       onClick: () => navigate("/platform/quick-interview") },
-          { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
-          { label: "IRS based Resume Builder", onClick: () => navigate("/platform/resume-builder") },
-        ]},
-        { head: "For companies", links: [
-          { label: "Hiring Pipeline",         onClick: () => navigate("/platform/hiring-pipeline") },
-          { label: "IAEM Interviewer Audit",  onClick: () => navigate("/platform/iaem") },
-          { label: "Assessment Builder",      onClick: () => navigate("/platform/assessment-builder") },
-          { label: "Proctoring and Security", onClick: () => navigate("/platform/proctoring-security") },
+        { head: "Know the platform", links: [
+          { label: "About iEvalX", onClick: () => navigate("/platform/about-ievalx") },
         ]},
       ],
       featured: {
         title: "One interview. Six scores. Zero guesswork.",
         desc: "Skill-gap search, 10-minute AI interviews, verified CIR scores and audited interviewers.",
-        cta: "What we Offer", onClick: () => navigate("/what-we-offer"),
+        cta: "See how it works", onClick: () => navigate("/platform/about-ievalx"),
       },
     },
     /* ── 3. SERVICES ── */
     {
       label: "Services", match: ["/support", "/services"],
+      wide: true, // 4 link columns + featured tile on the right
       groups: [
-        { head: "For candidates", links: [
+        { head: "For jobseekers", links: [
+          { label: "Quick Interview & CIR", onClick: () => navigate("/platform/quick-interview") },
+          { label: "IRS Resume Builder",    onClick: () => navigate("/platform/resume-builder") },
+          { label: "Instant Job Matches",   onClick: () => navigate("/services/instant-job-matches") },
+          { label: "Application Tracker",   onClick: () => navigate("/services/application-tracker") },
+        ]},
+        { head: "", links: [
+          { label: "AI Practice Interview", onClick: () => navigate("/platform/ai-practice-interview") },
           { label: "AI Interviews",         onClick: () => navigate("/services/ai-interviews") },
           { label: "Assessments",           onClick: () => navigate("/services/assessments") },
-          { label: "Book a live interview", onClick: () => navigate("/services/live-interviews") },
+          { label: "Live Interviews",       onClick: () => navigate("/services/live-interviews") },
         ]},
-        { head: "For employers", links: [
-  { label: "Employer suite",       onClick: () => navigate("/services/employer-suite") },
-  { label: "Interviewers",         onClick: () => navigate("/services/employer-suite") },
-  { label: "Compliance and audit", onClick: () => navigate("/services/compliance") },
-]},
+        { head: "For companies", links: [
+          { label: "Verified Hiring",       onClick: () => navigate("/services/verified-hiring") },
+          { label: "Employer Suite",        onClick: () => navigate("/services/employer-suite") },
+          { label: "Smart Shortlisting",    onClick: () => navigate("/services/smart-shortlisting") },
+          { label: "Hiring Pipeline",       onClick: () => navigate("/platform/hiring-pipeline") },
+          { label: "Assessment Builder",    onClick: () => navigate("/platform/assessment-builder") },
+        ]},
+        { head: "", links: [
+          { label: "Campus Drive",             onClick: () => navigate("/services/campus-drive") },
+          { label: "Interviewer Suite (IAEM)", onClick: () => navigate("/platform/iaem") },
+          { label: "Compliance Suite",         onClick: () => navigate("/services/compliance") },
+          { label: "Proctoring & Security",    onClick: () => navigate("/platform/proctoring-security") },
+        ]},
       ],
       featured: {
         title: "Shortlist in hours, not weeks",

@@ -166,6 +166,8 @@ export default function ServicePage() {
     liveInterview:   () => goSeeker("/jobseeker/smart-interviews/live"),
     registerCompany: () => navigate(isAuthenticated ? "/auth" : "/auth?view=register-company"),
     contact:         () => navigate("/support"),
+    jobMatches:         () => goSeeker("/jobseeker/find-jobs"),
+    applicationTracker: () => goSeeker("/jobseeker/applications"),
   };
   const runCta = ACTIONS[page.cta.action] || (() => navigate("/auth"));
 

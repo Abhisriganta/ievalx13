@@ -139,112 +139,110 @@ export const SERVICE_PAGES = {
   /* ── For employers ───────────────────────────────────────────────────── */
   "employer-suite": {
     eyebrow: "Employer Suite",
-    title: "One Workspace for Your Whole Hiring Team",
+    title: "Everything a Recruiter Does, in One Dashboard",
     subtitle:
-      "Verify your company, bring in your HR team, interviewers and compliance officers, and run every job from posting to final hire in one place.",
+      "Post jobs, shortlist applicants, run every round and close the hire. The Employer Suite is where your recruiters do their daily hiring work.",
     cta: { label: "Register My Company", action: "registerCompany" },
     whatItIs:
-      "The Employer Suite is your company's home on iEvalX. It holds your team, your jobs, your candidates and your hiring data, with the right permissions for each person.",
+      "Employers are the recruiters and HR members your company admin adds to iEvalX. Each one owns their jobs from posting to final hire, with a role that decides what they can do.",
     steps: [
-      { title: "Register and verify", desc: "Upload your company documents for verification before you start hiring." },
-      { title: "Add your team", desc: "Invite HR, interviewers and compliance officers, each with their own dashboard." },
-      { title: "Post and approve", desc: "HR drafts jobs; your company admin approves them before they go live." },
-      { title: "Hire and review", desc: "Shortlist from ranked results, move picks to Final Hire and track it all in analytics." },
+      { title: "Post jobs",            desc: "Create a job and submit it. It goes live once your company admin approves it." },
+      { title: "Shortlist applicants", desc: "Review applicants with their match and CIR scores. Shortlist or reject, one by one or in bulk." },
+      { title: "Run the rounds",       desc: "Build a pipeline in the Scheduling Hub, choose the rounds and approve candidates round by round." },
+      { title: "Close the hire",       desc: "Move final-round picks to Final Hire and record a direct call, offer letter or your own process." },
     ],
     blocks: [
       {
         type: "cards",
-        eyebrow: "Every Applicant, on One Card",
-        title: "Scored Before You Open the Resume",
+        eyebrow: "Daily Responsibilities",
+        title: "What an Employer Owns",
         items: [
-          { title: "Resume match",          desc: "How well the resume fits this job, with matched and missing skills." },
-          { title: "Quick Interview score", desc: "A 10-minute AI interview result, before you spend a minute." },
-          { title: "CIR",                   desc: "Six competencies in one score out of 10." },
-          { title: "Proctoring risk",       desc: "How clean their assessments and AI interviews were." },
+          { title: "Jobs & Applicants",  desc: "Post, update with approval and track every job and its applicants." },
+          { title: "Scheduling Hub",     desc: "Pipelines, rounds, time windows and invites for shortlisted candidates." },
+          { title: "Round Approvals",    desc: "Ranked results per round. Approve, hold or reject each candidate." },
+          { title: "Pending Candidates", desc: "Candidates on hold, ready to recall into a new round." },
+          { title: "Final Hire",         desc: "Hiring outcomes, offer letters and openings filled." },
+          { title: "Question Bank",      desc: "Build and reuse assessments, or let AI draft one from the job description." },
         ],
       },
       {
         type: "cards",
-        eyebrow: "Built for Teams",
-        title: "The Right Dashboard for Every Role",
+        eyebrow: "Interviewer Audit · HR Side",
+        title: "Managing Live Interviews",
         items: [
-          { title: "Company Admin",       desc: "Approves jobs, manages the team, reassigns job ownership." },
-          { title: "HR / Recruiters",     desc: "Post jobs, design rounds, shortlist and hire." },
-          { title: "Interviewers",        desc: "Run live rounds and score on a clear rubric." },
-          { title: "Compliance Officers", desc: "Review flagged cases and keep the audit trail." },
+          { title: "Approve interviewers", desc: "Review interviewer sign-ups. A second approver confirms each one." },
+          { title: "Release slots",        desc: "Open live-round slots to skill-matched interviewers and eligible candidates." },
+          { title: "Resolve cases",        desc: "Review flagged interviews and decide the outcome." },
+          { title: "Appeals and calibration", desc: "Handle interviewer appeals and run calibration sessions." },
         ],
+      },
+      {
+        type: "chips",
+        eyebrow: "Recruiter Roles",
+        title: "The Right Access for Each Person",
+        items: ["Hiring Manager", "Senior Recruiter", "Recruiter", "HR Admin", "Viewer"],
       },
     ],
     benefits: [
-      "Edit and republish requests, so live jobs never change without approval",
-      "Pending and Final Hire boards to close every loop",
-      "Analytics: hiring funnel, stage aging and no-shows",
-      "Campus drives for hiring freshers at scale",
+      "Every applicant arrives with a match score and CIR score",
+      "Bulk shortlist, reject and invite",
+      "Analytics on your jobs, hiring funnel and candidates",
+      "Notifications for new applicants and round results",
     ],
     different:
-      "Most job portals give you a posting board and an inbox. iEvalX gives your whole team a verified workspace where every applicant arrives already scored.",
-    closing: { title: "Bring your hiring team under one roof.", desc: "Register your company and invite your team in minutes." },
+      "Most portals give recruiters an inbox of resumes. iEvalX gives them scored applicants, built-in rounds and a hire board, all in one dashboard.",
+    closing: { title: "Give your recruiters one place to hire.", desc: "Register your company and add your team." },
   },
 
   compliance: {
-    eyebrow: "Compliance and Audit",
-    title: "Every Hiring Decision, Backed by Evidence",
+    eyebrow: "Compliance Suite",
+    title: "Independent Oversight of Every Interview",
     subtitle:
-      "Proctoring evidence on every test, audit cases on every interview, and a full trail behind every hire, all reviewed by your own compliance officers.",
-    cta: { label: "Talk to Us", action: "contact" },
+      "Compliance officers watch over interviewer audit cases, co-sign serious actions and keep a complete record of every decision.",
+    cta: { label: "Register My Company", action: "registerCompany" },
     whatItIs:
-      "Compliance and Audit gives your compliance officers one place to check that hiring was fair on both sides of the table: candidates didn't cheat, and interviewers didn't cut corners.",
+      "Compliance officers are added by your company admin. They don't run hiring; they check that it was fair. They review flagged interviews with the full evidence and sign off before any formal action is taken against an interviewer.",
     steps: [
-      { title: "Collect evidence", desc: "Every assessment and AI interview is proctored; every live interview is audited." },
-      { title: "Flag automatically", desc: "High proctoring risk or an interviewer audit signal opens a case." },
-      { title: "Review with deadlines", desc: "Each case has evidence, an owner and an SLA. Critical cases within 24 hours." },
-      { title: "Decide and record", desc: "Formal actions need a second sign-off, and every step is logged." },
+      { title: "Watch critical alerts", desc: "Critical audit signals and cases close to their deadline appear first." },
+      { title: "Oversee cases",         desc: "Open any case to see the scores, transcript, recording and signals behind it." },
+      { title: "Co-sign formal actions", desc: "Formal action against an interviewer needs a second approval. Approve or reject it." },
+      { title: "Keep the record",       desc: "Every change, comment and decision is logged in the audit trail." },
     ],
     blocks: [
       {
         type: "cards",
-        eyebrow: "Candidate Integrity",
-        title: "Proctoring Evidence You Can Act On",
+        eyebrow: "Daily Responsibilities",
+        title: "What a Compliance Officer Owns",
         items: [
-          { title: "35+ checks",         desc: "Across identity, surroundings, browser and device." },
-          { title: "Risk score 0–100",  desc: "One clear number for every session." },
-          { title: "Snapshot timeline", desc: "What happened and when, not just a flag." },
-        ],
-      },
-      {
-        type: "checklist",
-        eyebrow: "Interview Integrity · IAEM Cases",
-        title: "What Gets Flagged in Live Interviews",
-        items: [
-          "Off-topic or level-mismatched questions",
-          "Scores that don't match the evidence",
-          "Rude conduct, harassment or discrimination",
-          "Interviewers can appeal before any action is taken",
+          { title: "Critical Alerts",   desc: "Critical cases and deadline breaches in one feed." },
+          { title: "Case Oversight",    desc: "Every interviewer audit case with its evidence and status." },
+          { title: "Co-Sign Requests",  desc: "Formal actions waiting for a second approval." },
+          { title: "Audit Trail",       desc: "Who changed what, and when, on every case." },
+          { title: "Signal Guidelines", desc: "The rules every interview is checked against." },
+          { title: "AI Model Cards",    desc: "How each AI score is produced." },
         ],
       },
       {
         type: "cards",
-        eyebrow: "Governance Controls",
-        title: "Controls Your Compliance Team Will Expect",
+        eyebrow: "Case Deadlines",
+        title: "Nothing Sits Unreviewed",
         items: [
-          { title: "Four-eyes co-sign",  desc: "Formal actions need a second compliance officer." },
-          { title: "Legal holds",        desc: "Keep evidence for a case that needs it." },
-          { title: "Retention clean-up", desc: "Recordings and data deleted on schedule when no longer needed." },
-          { title: "AI model cards",     desc: "See how each AI component scores and decides." },
-          { title: "Audit trail",        desc: "Every review, decision and change is logged." },
-          { title: "Case SLAs",          desc: "Deadlines on every case, so nothing sits unreviewed." },
+          { title: "Critical", desc: "Within 24 hours." },
+          { title: "High",     desc: "Within 3 days." },
+          { title: "Medium",   desc: "Within 7 days." },
+          { title: "Low",      desc: "Within 14 days." },
         ],
       },
     ],
     benefits: [
-      "One place for candidate and interviewer integrity",
-      "Evidence attached to every flag",
-      "Deadlines and owners on every case",
+      "Independent from the recruiters making hiring decisions",
+      "Full evidence behind every case",
+      "No formal action without a second approval",
       "A defensible record behind every hire",
     ],
     different:
-      "Most hiring tools hand you a result and a flag. iEvalX hands your compliance team the evidence, the deadlines and the sign-offs to stand behind every decision.",
-    closing: { title: "Hire fairly, and prove it.", desc: "See how Compliance and Audit fits your hiring team." },
+      "Most hiring tools have no one checking the checkers. iEvalX gives your compliance team their own seat, with the evidence and sign-off power to keep hiring fair.",
+    closing: { title: "Hire fairly, and prove it.", desc: "Register your company and add your compliance officers." },
   },
 
   /* ── Campus drives (Jobs menu → Employers → "Run a campus drive") ───── */
@@ -290,5 +288,146 @@ export const SERVICE_PAGES = {
     different:
       "Most campus drives mean days of first-round calls and spreadsheets. On iEvalX, students take a fresher-level AI interview from anywhere, and you start with a ranked shortlist.",
     closing: { title: "Your next batch of hires is on campus.", desc: "Register your company and run your first drive." },
+  },
+  /* ── Added: Services menu → For jobseekers ───────────────────────────── */
+  "instant-job-matches": {
+    eyebrow: "Instant Job Matches",
+    title: "Jobs That Fit You, Found for You",
+    subtitle:
+      "iEvalX matches your profile to verified jobs and tells you the moment a new one fits — no endless scrolling.",
+    cta: { label: "See My Matches", action: "jobMatches" },
+    whatItIs:
+      "Instant Job Matches compares your profile with every live, approved job on iEvalX and shows the best fits first. New matching jobs are sent to you as they go live.",
+    steps: [
+      { title: "Complete your profile", desc: "Skills, experience, education, expected salary and preferred locations." },
+      { title: "Get matched",           desc: "Jobs are scored against your profile and the best fits are recommended to you." },
+      { title: "Get alerts",            desc: "When new jobs that match you are approved, you're notified." },
+      { title: "Apply in one click",    desc: "Apply with the resume already saved in your profile." },
+    ],
+    blocks: [
+      {
+        type: "chips",
+        eyebrow: "What We Match On",
+        title: "More Than Just Keywords",
+        items: ["Skills", "Experience", "Location", "Education", "Salary", "Languages", "Industry", "Certifications"],
+      },
+    ],
+    benefits: [
+      "Only verified companies and approved jobs",
+      "Best-fit jobs shown first on your dashboard",
+      "Alerts when a new matching job goes live",
+      "A match score for your resume on every application",
+    ],
+    different:
+      "Most portals make you search. iEvalX brings matching jobs to you — and every one of them comes from a verified company.",
+    closing: { title: "Let the right jobs find you.", desc: "Complete your profile and see your matches." },
+  },
+
+  "application-tracker": {
+    eyebrow: "Application Tracker",
+    title: "Know Exactly Where Every Application Stands",
+    subtitle:
+      "Every job you apply to, every round you're in and every decision — tracked in one place, with an update the moment anything changes.",
+    cta: { label: "Track My Applications", action: "applicationTracker" },
+    whatItIs:
+      "Application Tracker shows the live status of each application, from the moment you apply to the final decision, so you never have to wonder or chase an employer.",
+    steps: [
+      { title: "Apply",            desc: "Your application appears in Applied Jobs straight away." },
+      { title: "Follow the status", desc: "See it move from Applied to Shortlisted to Selected." },
+      { title: "Clear your rounds", desc: "Rounds sent by the employer appear in your dashboard, one at a time." },
+      { title: "Get the decision", desc: "You're notified by email and in-app at every change." },
+    ],
+    blocks: [
+      {
+        type: "chips",
+        eyebrow: "Every Status, Clearly Shown",
+        title: "No More Guessing",
+        items: ["Applied", "Shortlisted", "Selected", "On Hold", "Rejected", "Withdrawn"],
+      },
+    ],
+    benefits: [
+      "All applications in one list, in card or table view",
+      "Email and in-app updates at every status change",
+      "Withdraw any time before a final decision",
+      "Save jobs to apply later",
+    ],
+    different:
+      "On most portals your application disappears after you click Apply. On iEvalX you see every status and every round, as it happens.",
+    closing: { title: "Stop wondering. Start tracking.", desc: "Your applications, rounds and results in one place." },
+  },
+
+  /* ── Added: Services menu → For companies ────────────────────────────── */
+  "smart-shortlisting": {
+    eyebrow: "Smart Shortlisting",
+    title: "Shortlist on Scores, Not Guesswork",
+    subtitle:
+      "Every applicant arrives with a resume match score and their Quick Interview CIR score, so the strongest candidates stand out from the start.",
+    cta: { label: "Register My Company", action: "registerCompany" },
+    whatItIs:
+      "Smart Shortlisting puts two scores next to every applicant: how well their resume matches your job description, and their CIR score from the iEvalX Quick Interview.",
+    steps: [
+      { title: "Post your job",     desc: "Once approved, it goes live to verified candidates." },
+      { title: "Applicants arrive", desc: "Each one is scored against your job description as they apply." },
+      { title: "Compare at a glance", desc: "Match score and CIR score side by side on every applicant." },
+      { title: "Shortlist",         desc: "Shortlist or reject one by one or in bulk, then add them to your pipeline." },
+    ],
+    blocks: [
+      {
+        type: "cards",
+        eyebrow: "Two Scores on Every Applicant",
+        title: "See Fit and Skill Together",
+        items: [
+          { title: "Match score", desc: "How closely the resume matches your job description." },
+          { title: "CIR score",   desc: "An overall score out of 10 from the candidate's proctored Quick Interview." },
+        ],
+      },
+    ],
+    benefits: [
+      "Strong candidates surface without reading every CV",
+      "Bulk shortlist and reject",
+      "Candidates are emailed when their status changes",
+      "Shortlisted candidates move straight into your hiring pipeline",
+    ],
+    different:
+      "Most portals give you a stack of resumes. iEvalX gives you every applicant with a match score and a verified interview score.",
+    closing: { title: "Your shortlist, ready in hours.", desc: "Register your company and post your first job." },
+  },
+
+  "verified-hiring": {
+    eyebrow: "Verified Hiring",
+    title: "Verified Companies. Approved Jobs. Trusted Teams.",
+    subtitle:
+      "Every company on iEvalX is document-verified, every recruiter job is approved before it goes live, and every action is logged.",
+    cta: { label: "Register My Company", action: "registerCompany" },
+    whatItIs:
+      "Verified Hiring is the trust layer of iEvalX. It protects candidates from fake postings and gives your company full control over who posts what.",
+    steps: [
+      { title: "Register",          desc: "Add your company details and upload MCA, Aadhaar, PAN, MSME and GST documents." },
+      { title: "Get verified",      desc: "The iEvalX team checks each document. You can log in once verified." },
+      { title: "Add your team",     desc: "Create recruiter accounts with roles. Login details are emailed to them." },
+      { title: "Approve every job", desc: "Recruiter jobs go live only after company admin approval." },
+    ],
+    blocks: [
+      {
+        type: "cards",
+        eyebrow: "Control at Every Step",
+        title: "Built for Teams That Hire Responsibly",
+        items: [
+          { title: "Document verification", desc: "Rejected documents come back with a reason to re-upload." },
+          { title: "Recruiter roles",       desc: "Hiring Manager, Senior Recruiter, Recruiter, HR Admin and Viewer." },
+          { title: "Job approvals",         desc: "Approve or reject recruiter jobs, with a reason on every rejection." },
+          { title: "Edit and republish requests", desc: "Live jobs change only with admin approval." },
+        ],
+      },
+    ],
+    benefits: [
+      "Candidates trust jobs from verified companies",
+      "No job goes live without your approval",
+      "Reassign jobs between recruiters any time",
+      "An activity log behind every action",
+    ],
+    different:
+      "On most portals anyone can post a job. On iEvalX every company is verified and every recruiter job is approved before candidates see it.",
+    closing: { title: "Hire with a name candidates trust.", desc: "Register and get your company verified." },
   },
 };

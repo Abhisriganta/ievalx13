@@ -22,27 +22,28 @@ import { usePublicJobs } from "@/services/api/publicJobsService";
    ══════════════════════════════════════════════════════════════════════════ */
 
 const MAX_CARDS = 12;
-const MAX_TABS  = 4;   // "All" + up to 4 industries
+const MAX_TABS  = 6;   // "All" + up to 6 industries
 
 /* DEV-ONLY dummy companies — for local layout testing ONLY.
    import.meta.env.DEV is false in production builds, so these well-known
    names never appear on the live site (showing them there would imply they
    hire through iEvalX). Real companies replace them once the API responds. */
-const logo = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
-const DEMO_COMPANIES = [
-  { name: "TCS",               initials: "TCS", color: "#24433E", industry: "Information Technology", roles: 12, logoUrl: logo("tcs.com") },
-  { name: "Infosys",           initials: "IN",  color: "#4F6E4E", industry: "Information Technology", roles: 10, logoUrl: logo("infosys.com") },
-  { name: "HDFC Bank",         initials: "HD",  color: "#022124", industry: "Banking & Finance",      roles: 9,  logoUrl: logo("hdfcbank.com") },
-  { name: "Wipro",             initials: "WI",  color: "#6C8B6B", industry: "Information Technology", roles: 8,  logoUrl: logo("wipro.com") },
-  { name: "ICICI Bank",        initials: "IC",  color: "#C08A5B", industry: "Banking & Finance",      roles: 7,  logoUrl: logo("icicibank.com") },
-  { name: "Apollo Hospitals",  initials: "AH",  color: "#7F9E7E", industry: "Healthcare",             roles: 6,  logoUrl: logo("apollohospitals.com") },
-  { name: "HCLTech",           initials: "HCL", color: "#1F1F1F", industry: "Information Technology", roles: 6,  logoUrl: logo("hcltech.com") },
-  { name: "Tata Motors",       initials: "TM",  color: "#24433E", industry: "Manufacturing",          roles: 5,  logoUrl: logo("tatamotors.com") },
-  { name: "Mahindra",          initials: "MA",  color: "#C08A5B", industry: "Manufacturing",          roles: 4,  logoUrl: logo("mahindra.com") },
-  { name: "Flipkart",          initials: "FK",  color: "#4F6E4E", industry: "E-commerce",             roles: 4,  logoUrl: logo("flipkart.com") },
-  { name: "Axis Bank",         initials: "AX",  color: "#6C8B6B", industry: "Banking & Finance",      roles: 3,  logoUrl: logo("axisbank.com") },
-  { name: "Fortis Healthcare", initials: "FH",  color: "#022124", industry: "Healthcare",             roles: 3,  logoUrl: logo("fortishealthcare.com") },
-];
+  const logo = (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+  const cl = (name) => `/company-logos/${name}.png`;
+  const DEMO_COMPANIES = [
+    { name: "Microsoft",         initials: "MS",  color: "#00A4EF", industry: "Information Technology", roles: 15, logoUrl: cl("MSFT_BIG") },
+    { name: "Google",            initials: "GO",  color: "#4285F4", industry: "Information Technology", roles: 14, logoUrl: cl("GOOG_BIG") },
+    { name: "Amazon",            initials: "AZ",  color: "#FF9900", industry: "Information Technology", roles: 13, logoUrl: cl("AMZN_BIG") },
+    { name: "Cognizant",         initials: "CG",  color: "#1A4789", industry: "Information Technology", roles: 12, logoUrl: cl("CTSH_BIG") },
+    { name: "Capgemini",         initials: "CP",  color: "#0070AD", industry: "Information Technology", roles: 11, logoUrl: cl("CAP.PA_BIG") },
+    { name: "SAP",               initials: "SAP", color: "#0FAAFF", industry: "Information Technology", roles: 10, logoUrl: cl("SAP_BIG") },
+    { name: "TCS",               initials: "TCS", color: "#24433E", industry: "Information Technology", roles: 12, logoUrl: cl("TCS.NS_BIG") },
+    { name: "Infosys",           initials: "IN",  color: "#4F6E4E", industry: "Information Technology", roles: 10, logoUrl: cl("INFY_BIG") },
+    { name: "Wipro",             initials: "WI",  color: "#44225D", industry: "Information Technology", roles: 9,  logoUrl: cl("WIT") },
+    { name: "LTIMindtree",       initials: "LTI", color: "#0072C6", industry: "Information Technology", roles: 8,  logoUrl: cl("LTIM.NS_BIG") },
+    { name: "Tech Mahindra",     initials: "TM",  color: "#003982", industry: "Information Technology", roles: 7,  logoUrl: cl("TECHM.NS_BIG") },
+    { name: "Apple",             initials: "AP",  color: "#555555", industry: "Information Technology", roles: 6,  logoUrl: cl("AAPL") },
+  ];
 
 /* jobs → [{ name, logoUrl, initials, color, industry, roles }] ranked by roles */
 function groupCompanies(jobs) {
@@ -70,25 +71,29 @@ function groupCompanies(jobs) {
 
 function CompanyLogo({ co }) {
   const [failed, setFailed] = useState(false);
+  const initialsLen = (co.initials || "").length;
+  const fontSize = initialsLen > 6 ? 10 : initialsLen > 4 ? 12 : initialsLen > 3 ? 14 : 19;
   return co.logoUrl && !failed ? (
-    <Box component="img" src={co.logoUrl} alt={`${co.name} logo`} loading="lazy"
-      onError={() => setFailed(true)}
-      sx={{
-        width: 60, height: 60, borderRadius: "16px", objectFit: "contain",
-        bgcolor: "#fff", border: `1px solid ${C.line}`, p: "10px",
-      }} />
+    <Box sx={{
+      width: "100%", height: 70, display: "flex", alignItems: "center", justifyContent: "center", p: "8px 12px",
+    }}>
+      <Box component="img" src={co.logoUrl} alt={`${co.name} logo`} loading="lazy"
+        onError={() => setFailed(true)}
+        sx={{ maxWidth: 120, maxHeight: 54, objectFit: "contain", display: "block" }}
+      />
+    </Box>
   ) : (
     <Box aria-hidden="true" sx={{
       width: 60, height: 60, borderRadius: "16px", bgcolor: co.color || C.sage,
       color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
-      fontFamily: FONT, fontSize: 19, fontWeight: 700,
+      fontFamily: FONT, fontSize, fontWeight: 700,
     }}>
       {co.initials}
     </Box>
   );
 }
 
-export default function TopCompanies() {
+export default function TopCompanies({ compRef }) {
   const navigate = useNavigate();
   const { jobs, loading: apiLoading } = usePublicJobs();
   const [tab, setTab] = useState("All");
@@ -130,7 +135,7 @@ export default function TopCompanies() {
   };
 
   const live      = groupCompanies(jobs);
-  const showDemo  = (import.meta.env.DEV || import.meta.env.VITE_SHOW_DEMO === "true") && live.length === 0;
+  const showDemo  = (import.meta.env.DEV || import.meta.env.VITE_SHOW_DEMO === "true");
   const loading   = apiLoading && !showDemo;
   const companies = showDemo ? DEMO_COMPANIES : live;
 
@@ -149,7 +154,7 @@ export default function TopCompanies() {
   const openCompany = (name) => navigate(`/jobs?q=${encodeURIComponent(name)}`);
 
   return (
-    <Box component="section" sx={{ py: { xs: 7, md: 10 }, bgcolor: C.cream }}>
+    <Box ref={compRef} component="section" sx={{ py: { xs: 7, md: 10 }, bgcolor: C.cream }}>
       <Container maxWidth="lg">
         <FadeUp>
           <Box sx={{ textAlign: "center" }}>
@@ -168,7 +173,7 @@ export default function TopCompanies() {
         </FadeUp>
 
         {/* ── industry filter tabs ── */}
-        {!loading && tabs.length > 2 && (
+        {!loading && tabs.length > 1 && (
           <FadeUp delay={0.05}>
             <Box role="tablist" aria-label="Filter companies by industry" sx={{
               display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1, mt: 3.5,
