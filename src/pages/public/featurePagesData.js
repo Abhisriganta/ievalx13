@@ -119,20 +119,20 @@ export const FEATURE_PAGES = {
     eyebrow: "Hiring Pipeline",
     title: "Post a Job. Design the Rounds. Let the Best Rise to the Top.",
     subtitle:
-      "Build your hiring process round by round: AI assessments, AI interviews and live video. Every result is proctored, scored and ranked for you.",
+      "Build your hiring process round by round, schedule every round in one place and let candidates book their own live interview time. Every result is proctored, scored and ranked for you.",
     cta: { label: "Post a Job", action: "postJob" },
     whatItIs:
-      "The hiring pipeline is where a job turns into a shortlist. You choose the rounds; iEvalX runs them, scores every candidate the same way and ranks the results.",
+      "The hiring pipeline is where a job turns into a shortlist. You choose the rounds and when they run; iEvalX sends the invites, opens the slots, scores every candidate the same way and ranks the results.",
     steps: [
       { title: "Post a job", desc: "Your company admin approves it before it goes live." },
-      { title: "Design your rounds", desc: "Choose the rounds this job needs, from AI assessments and AI interviews to live video, and set their order." },
-      { title: "Set a cut-off", desc: "Candidates who score above it move to the next round automatically." },
+      { title: "Design your rounds", desc: "Choose the rounds this job needs, from assessments and interviews to live video, and set their order." },
+            { title: "Schedule the rounds", desc: "Set when each round opens and closes. Candidates are invited by email and in-app, one round at a time." },
       { title: "Hire from ranked results", desc: "Review the top candidates per round and move your picks to Final Hire." },
     ],
     blocks: [
       {
         type: "cards",
-        eyebrow: "AI Assessments",
+        eyebrow: "Assessments",
         title: "Paste a JD, Get a Test",
         items: [
           { title: "Drafted by AI, approved by you", desc: "AI writes the assessment from your job description. Nothing goes live until you approve it." },
@@ -140,12 +140,25 @@ export const FEATURE_PAGES = {
           { title: "Built-in coding editor",         desc: "Python, Java, JavaScript, C++ and SQL, run and checked automatically." },
         ],
       },
+      {
+        type: "cards",
+        eyebrow: "Built-in Scheduling",
+        title: "Every Round on Time. Every Slot Filled.",
+        items: [
+          { title: "Time windows per round", desc: "Each round opens and closes on the dates you set." },
+          { title: "One-click invites",      desc: "Shortlisted candidates are invited by email and in-app together." },
+          { title: "Self-booked live slots", desc: "Skill-matched interviewers open slots; candidates pick their own time." },
+          { title: "Automatic reminders",    desc: "Candidates and interviewers are reminded before a live interview." },
+          { title: "No-show tracking",       desc: "Missed slots are picked up automatically, so nothing sits in limbo." },
+          { title: "Several pipelines per job", desc: "Run separate flows for different openings or batches." },
+        ],
+      },
       
      
     ],
     benefits: [
       "Ranked results for every round",
-      "Auto-advance above your cut-off, auto-reject for no-shows",
+      "You approve every move: approve, hold or reject per round",
       "Pending and Final Hire boards to close the loop",
       "Hiring funnel, stage-aging and no-show analytics",
       "Campus drives for hiring freshers at scale",
@@ -333,8 +346,8 @@ export const FEATURE_PAGES = {
         eyebrow: "Where It Runs",
         title: "Proctoring Covers Every Evaluated Session",
         items: [
-          "AI assessments (manual and AI-generated)",
-          "AI interview rounds",
+          "assessments (manual and AI-generated)",
+          "interview rounds",
           "Quick Interview (10-minute standalone)",
           "Campus drive sessions",
           "Document-based interview rounds",

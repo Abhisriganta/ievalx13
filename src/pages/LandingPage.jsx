@@ -114,7 +114,7 @@ const LandingPage = () => {
           { label: "Verified Hiring",       onClick: () => navigate("/services/verified-hiring") },
           { label: "Employer Suite",        onClick: () => navigate("/services/employer-suite") },
           { label: "Smart Shortlisting",    onClick: () => navigate("/services/smart-shortlisting") },
-          { label: "Hiring Pipeline",       onClick: () => navigate("/platform/hiring-pipeline") },
+          { label: "Interview Scheduling",       onClick: () => navigate("/platform/hiring-pipeline") },
           { label: "Assessment Builder",    onClick: () => navigate("/platform/assessment-builder") },
         ]},
         { head: "", links: [
@@ -126,7 +126,7 @@ const LandingPage = () => {
       ],
       featured: {
         title: "Shortlist in hours, not weeks",
-        desc: "Ranked applicants, CIR scores and auto-advance rounds for hiring teams.",
+        desc: "Every applicant arrives with a match score and a CIR score, ready to compare.",
         cta: "Get started", onClick: () => navigate("/auth?view=register-company"),
       },
     },
@@ -171,6 +171,7 @@ const LandingPage = () => {
   
       <MegaNav
         sections={SECTIONS}
+        alignLogoToHero
         onLogoClick={() => window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" })}
         ctaLabel="Sign In"
         onCtaClick={() => navigate("/auth")}

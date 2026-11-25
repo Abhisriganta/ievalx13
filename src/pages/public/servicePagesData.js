@@ -250,10 +250,10 @@ export const SERVICE_PAGES = {
     eyebrow: "Campus Drives",
     title: "Run a Campus Drive Without the Chaos.",
     subtitle:
-      "Interview a whole batch of students with AI rounds built for freshers. Short sessions, student-level questions, and a ranked list at the end.",
+      "Interview a whole batch of students with multiple rounds built for freshers. Short sessions, student-level questions, and a ranked list at the end.",
     cta: { label: "Register My Company", action: "registerCompany" },
     whatItIs:
-      "Campus mode turns any AI interview round into a placement-drive format. Students join from their own dashboard, every session is proctored, and you review scores instead of running hundreds of first-round calls.",
+      "Campus mode turns any interview round into a placement-drive format. Students join from their own dashboard, every session is proctored, and you review scores instead of running hundreds of first-round calls.",
     steps: [
       { title: "Post the role",        desc: "Create the job and add the students or applicants for the drive." },
       { title: "Switch on campus mode", desc: "Turn on Campus Placement Drive for the AI interview round." },

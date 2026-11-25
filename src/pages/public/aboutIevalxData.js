@@ -18,6 +18,7 @@ export const AUDIENCES = {
   /* ─────────────────────────── JOBSEEKERS ─────────────────────────── */
   seeker: {
     tab: "For Jobseekers",
+    promise: "Verified companies. Verified jobs.",
     lead: "Seven steps from your first sign-up to your offer — with your skills visible at every stage.",
     steps: [
       {
@@ -112,6 +113,7 @@ export const AUDIENCES = {
   /* ─────────────────────────── COMPANIES ─────────────────────────── */
   company: {
     tab: "For Companies",
+    promise: "Save time and cost on every hire.",
     lead: "Eight steps from registration to hire — with proof behind every decision.",
     steps: [
       {

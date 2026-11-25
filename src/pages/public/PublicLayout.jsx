@@ -93,7 +93,7 @@ export default function PublicLayout({ children, _hero }) {
           { label: "Verified Hiring",       onClick: () => navigate("/services/verified-hiring") },
           { label: "Employer Suite",        onClick: () => navigate("/services/employer-suite") },
           { label: "Smart Shortlisting",    onClick: () => navigate("/services/smart-shortlisting") },
-          { label: "Hiring Pipeline",       onClick: () => navigate("/platform/hiring-pipeline") },
+          { label: "Interview Scheduling",       onClick: () => navigate("/platform/hiring-pipeline") },
           { label: "Assessment Builder",    onClick: () => navigate("/platform/assessment-builder") },
         ]},
         { head: "", links: [
@@ -105,7 +105,7 @@ export default function PublicLayout({ children, _hero }) {
       ],
       featured: {
         title: "Shortlist in hours, not weeks",
-        desc: "Ranked applicants, CIR scores and auto-advance rounds for hiring teams.",
+        desc: "Every applicant arrives with a match score and a CIR score, ready to compare.",
         cta: "Get started", onClick: () => navigate("/auth?view=register-company"),
       },
     },

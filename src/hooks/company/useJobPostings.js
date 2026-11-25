@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useRefetchOnFocus } from '@/hooks/useRefetchOnFocus';
 import jobPost from '@/services/api/company/jobPost';
-import { withFreshGet } from '@/services/api/axiosInstance';
+import { withFreshGet, clearGetCacheFor } from '@/services/api/axiosInstance';
 const getBackendError = (err, fallback) => {
   return err?.response?.data?.Error
     || err?.response?.data?.message

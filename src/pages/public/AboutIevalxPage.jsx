@@ -215,6 +215,13 @@ export default function AboutIevalxPage() {
             {ABOUT_HERO.intro}
           </Typography>
         </FadeUp>
+        {/* ── one-line promise for the selected audience (changes with the switch) ── */}
+        <Stack direction="row" spacing={1} sx={{ justifyContent: "center", alignItems: "center", mt: 2.5 }}>
+          <CheckCircleRounded sx={{ fontSize: 20, color: C.sage }} />
+          <Typography sx={{ fontFamily: FONT, fontSize: { xs: 15, md: 16.5 }, fontWeight: 600, color: C.sageDark }}>
+            {data.promise}
+          </Typography>
+        </Stack>
       </Container>
 
       {/* ── sticky audience switch ── */}

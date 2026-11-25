@@ -104,6 +104,7 @@ const HERO_LOGOS_SEEKER = [
   { name: "HCL",                   domain: "hcl.com",     fallback: "#0B57A0" },
   { name: "CGI",                   domain: "cgi.com",        fallback: "#E31937" },
   { name: "Deloitte",              domain: "deloitte.com",   fallback: "#86BC25" },
+  { name: "EY",                    domain: "ey.com",         fallback: "#FFE600" },
 ];
 const HERO_LOGOS_COMPANY = [
   { name: "Microsoft",   domain: "microsoft.com",  fallback: "#5E5E5E" },
@@ -558,7 +559,7 @@ export default function HeroSection({ onHowItWorks, onCompaniesClick }) {
             <Box sx={{
               flex: 1, minWidth: 0, display: "flex", flexDirection: "column",
              justifyContent: { xs: "center", md: "flex-start" }, pt: { xs: 5, md: 4 }, pb: { md: 4 },
-              pl: { md: 6, lg: 10 },
+              pl: { md: 2, lg: 5 }, // text block nudged left (was md: 6, lg: 10)
             }}>
               {/* Jobseekers / Companies toggle */}
               <FadeUp>
@@ -655,6 +656,7 @@ export default function HeroSection({ onHowItWorks, onCompaniesClick }) {
                 {/* chips — popular searches (jobseekers) / feature links (companies) */}
                 <Box key={view} sx={{
                   display: "flex", flexWrap: "wrap", gap: 1.25, mt: 2,
+                  position: "relative", left: { md: 32, lg: 40 }, // keeps chips at their original spot
                   animation: REDUCED ? "none" : "heroChipsIn .5s cubic-bezier(0.22,1,0.36,1) both",
                   "@keyframes heroChipsIn": {
                     from: { opacity: 0, transform: "translateY(8px)" },
@@ -718,10 +720,11 @@ export default function HeroSection({ onHowItWorks, onCompaniesClick }) {
                     { sx: { left: { md: "48%", lg: "42%" }, top: 20 },  d: 0 },
                     { sx: { left: "-20%", top: 10 },                    d: 0.5 },
                     { sx: { left: "88%", top: 24 },                     d: 1.4 },
-                    { sx: { left: { md: "4%", lg: "12%" }, top: 320 },  d: 2.6 },
+                    { sx: { left: { md: "4%", lg: "12%" }, top: 200 },  d: 2.6 },
                     { sx: { left: { md: "36%", lg: "34%" }, top: 170 }, d: 0.9 },
                     { sx: { left: { md: "56%", lg: "68%" }, top: -30 },  d: 1.8 },
                     { sx: { left: { md: "92%", lg: "92%" }, top: 130 }, d: 2.0 },
+                    { sx: { left: { md: "-8%", lg: "-12%" }, top: 230 }, d: 1.1 },
                   ];
                   const companyPositions = [
                     { sx: { left: { md: "50%", lg: "44%" }, top: 25 },  d: 0 },
@@ -729,7 +732,7 @@ export default function HeroSection({ onHowItWorks, onCompaniesClick }) {
                     { sx: { left: "90%", top: 20 },                     d: 1.2 },
                     { sx: { left: { md: "6%", lg: "4%" }, top: 40 },  d: 2.4 },
                     { sx: { left: { md: "82%", lg: "94%" }, top: 165 }, d: 1.6 },
-                    { sx: { left: "60%", top: 165 },                    d: 0.8 },
+                    { sx: { left: "-20%", top: 15 },                    d: 0.8 },
                     { sx: { left: { md: "16%", lg: "24%" }, top: 150 }, d: 2.0 },
                   ];
                   const positions = isCompany ? companyPositions : seekerPositions;

@@ -39,6 +39,12 @@ const NAV_CSS = {
     display: "flex", alignItems: "center", gap: 9, cursor: "pointer",
     fontWeight: 700, fontSize: 26, color: C.ink, flexShrink: 0, outline: "none",
   },
+  /* home page only (alignLogoToHero): logo's left edge = hero headline's left edge.
+     Hero text sits at container gutter + 40px (lg) / 16px (md); the bar is max 1400px. */
+  ".mega-nav.hero-align .mega-bar .mega-logo": { marginLeft: "calc(40px - clamp(0px, (100vw - 1400px) / 2, 68px))" },
+  "@media (min-width: 1025px) and (max-width: 1199.98px)": {
+    ".mega-nav.hero-align .mega-bar .mega-logo": { marginLeft: 16 },
+  },
   ".ievalx-wm": {
     fontFamily: "'Poppins','Jost',sans-serif", fontWeight: 800,
     fontSize: "clamp(32px, 3.8vw, 40px)",
@@ -410,7 +416,7 @@ const PROFILE_ROUTE = {
   [ROLES.COMPANY]:   "/company/profile",
 };
 
-export default function MegaNav({ sections, onLogoClick, ctaLabel = "Sign  In", onCtaClick, onDotsClick }) {
+export default function MegaNav({ sections, onLogoClick, ctaLabel = "Sign  In", onCtaClick, onDotsClick, alignLogoToHero = false }) {
   const [openIdx, setOpenIdx] = useState(null);        /* desktop panel */
   const [drawerOpen, setDrawerOpen] = useState(false); /* left drawer */
   const [accIdx, setAccIdx] = useState(0);             /* drawer accordion */
@@ -600,7 +606,7 @@ export default function MegaNav({ sections, onLogoClick, ctaLabel = "Sign  In", 
     <div className="mega-nav-shell">
       <GlobalStyles styles={NAV_CSS} />
       <nav
-        className={`mega-nav ${scrolled ? "scrolled" : ""} ${openIdx !== null ? "panel-open" : ""}`}
+        className={`mega-nav ${scrolled ? "scrolled" : ""} ${openIdx !== null ? "panel-open" : ""}${alignLogoToHero ? " hero-align" : ""}`}
         onMouseLeave={scheduleClose}
         aria-label="Main navigation"
       >

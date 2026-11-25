@@ -276,7 +276,7 @@ const ChipInput = ({ value = [], onChange, label, placeholder, error }) => {
         error={!!error}
         helperText={error || 'Press Enter to add'}
         sx={inputSx}
-        InputProps={{
+        slotProps={{ input: {
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
@@ -288,7 +288,7 @@ const ChipInput = ({ value = [], onChange, label, placeholder, error }) => {
               </IconButton>
             </InputAdornment>
           ),
-        }}
+        } }}
       />
       <Box sx={{ mt: 1, display: 'flex', flexWrap: 'wrap', gap: 1, minWidth: 0, width: '100%' }}>
         {value.map((item) => (
@@ -553,14 +553,14 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
       maxWidth="md"
       fullWidth
       fullScreen={fullScreen}
-      PaperProps={{ sx: {
+      slotProps={{ paper: { sx: {
         minHeight: fullScreen ? '100%' : '80vh',
         maxHeight: fullScreen ? '100%' : '90vh',
         borderRadius: fullScreen ? 0 : '16px',
         overflow: 'hidden',
         bgcolor: OFF_WHITE,
         boxShadow: '0 20px 60px rgba(2,33,36,0.18)',
-      } }}
+      } } }}
     >
       {/* Pine header */}
       <Box sx={{
@@ -667,7 +667,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                 errors.companyName ||
                 (companyName ? 'Auto-filled from your company account' : '')
               }
-              InputProps={{ readOnly: !!companyName }}
+              slotProps={{ input: { readOnly: !!companyName } }}
               sx={inputSx}
             />
 
@@ -681,7 +681,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               error={!!errors.companyType}
               helperText={errors.companyType}
               sx={inputSx}
-              SelectProps={{
+              slotProps={{ select: {
                 MenuProps: {
                   slotProps: {
                     paper: {
@@ -699,7 +699,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     },
                   },
                 },
-              }}
+              } }}
             >
               {COMPANY_TYPES.map((t) => (
                 <MenuItem key={t} value={t}>{t}</MenuItem>
@@ -798,7 +798,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               error={!!errors.jobType}
               helperText={errors.jobType}
               sx={inputSx}
-              SelectProps={{
+              slotProps={{ select: {
                 MenuProps: {
                   slotProps: {
                     paper: {
@@ -816,7 +816,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     },
                   },
                 },
-              }}
+              } }}
             >
               {JOB_TYPES.map((t) => (
                 <MenuItem key={t} value={t}>{t}</MenuItem>
@@ -833,7 +833,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               error={!!errors.workMode}
               helperText={errors.workMode}
               sx={inputSx}
-              SelectProps={{
+              slotProps={{ select: {
                 MenuProps: {
                   slotProps: {
                     paper: {
@@ -851,7 +851,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     },
                   },
                 },
-              }}
+              } }}
             >
               {WORK_MODE_OPTIONS.map((w) => (
                 <MenuItem key={w} value={w}>{w}</MenuItem>
@@ -865,7 +865,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               onChange={update('openings')}
               fullWidth
               size="small"
-              inputProps={{ min: 1, step: 1 }}
+              slotProps={{ htmlInput: { min: 1, step: 1 } }}
               error={!!errors.openings}
               helperText={errors.openings || 'How many candidates do you want to hire for this role'}
               sx={inputSx}
@@ -943,7 +943,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                   onChange={update('expMin')}
                   fullWidth
                   size="small"
-                  inputProps={{ min: 0 }}
+                  slotProps={{ htmlInput: { min: 0 } }}
                   error={!!errors.expMin}
                   helperText={errors.expMin}
                   sx={inputSx}
@@ -955,7 +955,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                   onChange={update('expMax')}
                   fullWidth
                   size="small"
-                  inputProps={{ min: 0 }}
+                  slotProps={{ htmlInput: { min: 0 } }}
                   error={!!errors.expMax}
                   helperText={errors.expMax}
                   sx={inputSx}
@@ -975,7 +975,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                   onChange={update('salaryMin')}
                   fullWidth
                   size="small"
-                  inputProps={{ min: 0 }}
+                  slotProps={{ htmlInput: { min: 0 } }}
                   error={!!errors.salaryMin}
                   helperText={errors.salaryMin}
                   sx={inputSx}
@@ -987,7 +987,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                   onChange={update('salaryMax')}
                   fullWidth
                   size="small"
-                  inputProps={{ min: 0 }}
+                  slotProps={{ htmlInput: { min: 0 } }}
                   error={!!errors.salaryMax}
                   helperText={errors.salaryMax}
                   sx={inputSx}
@@ -1011,7 +1011,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               fullWidth
               size="small"
               sx={inputSx}
-              SelectProps={{
+              slotProps={{ select: {
                 MenuProps: {
                   slotProps: {
                     paper: {
@@ -1029,7 +1029,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     },
                   },
                 },
-              }}
+              } }}
             >
               {GENDER_OPTIONS.map((g) => (
                 <MenuItem key={g} value={g}>{g}</MenuItem>
@@ -1046,7 +1046,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               error={!!errors.candidateCategory}
               helperText={errors.candidateCategory}
               sx={inputSx}
-              SelectProps={{
+              slotProps={{ select: {
                 MenuProps: {
                   slotProps: {
                     paper: {
@@ -1064,7 +1064,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     },
                   },
                 },
-              }}
+              } }}
             >
               {CANDIDATE_CATEGORIES.map((c) => (
                 <MenuItem key={c} value={c}>{c}</MenuItem>
@@ -1097,7 +1097,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               error={!!errors.jobShift}
               helperText={errors.jobShift}
               sx={inputSx}
-              SelectProps={{
+              slotProps={{ select: {
                 MenuProps: {
                   slotProps: {
                     paper: {
@@ -1115,7 +1115,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     },
                   },
                 },
-              }}
+              } }}
             >
               {SHIFT_OPTIONS.map((s) => (
                 <MenuItem key={s} value={s}>{s}</MenuItem>
@@ -1128,7 +1128,8 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               value={form.languages}
               onChange={(_, newValue) => updateValue('languages', newValue)}
               disableCloseOnSelect
-              ChipProps={{
+              slotProps={{
+                chip: {
                 sx: {
                   bgcolor: `${BRAND}14`,
                   color: BRAND_DK,
@@ -1139,8 +1140,7 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
                     '&:hover': { color: BRAND_DK },
                   },
                 },
-              }}
-              slotProps={{
+              },
                 paper: {
                   sx: {
                     ...HIDDEN_SCROLLBAR,
@@ -1192,7 +1192,6 @@ const PostJob = ({ open, onClose, createJob, saveDraft, updateJob, editingJob, c
               onChange={update('applicationDeadline')}
               fullWidth
               size="small"
-              InputLabelProps={{ shrink: true }}
               slotProps={{
                 inputLabel: { shrink: true },
                 htmlInput: { min: new Date().toISOString().split('T')[0] },
