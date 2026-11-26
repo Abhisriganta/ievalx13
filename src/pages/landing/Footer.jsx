@@ -383,7 +383,7 @@ export default function FooterSection() {
                       "AI Interviews": "/services/ai-interviews",
                       "Assessments": "/services/assessments",
                       "Job Matching": "/services/instant-job-matches",
-                      "Live Interview": "/services/live-interviews",
+                      "Book Interview": "/services/live-interviews",
                     };
                     return (
                       <Typography
