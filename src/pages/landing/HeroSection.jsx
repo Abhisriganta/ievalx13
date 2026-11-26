@@ -269,7 +269,7 @@ function ScoreCard({ show, isCompany, sx }) {
   return (
     <HeroInfoCard show={show} sx={{ width: 255, ...sx }}>
       {/* IRS */}
-      <CardTitle icon="🔍">{isCompany ? "IRS: Instant Match" : "IRS: Resume Score"}</CardTitle>
+           <CardTitle icon="🔍">{isCompany ? "Match Score" : "IRS: Resume Score"}</CardTitle>
       <CardText>
         {isCompany
           ? "Post a JD, get matched CVs instantly, ranked by Quick Interview score, location and salary."

@@ -36,7 +36,7 @@ export const BLOG_POSTS = [
   { slug: "assessment-first-profile", date: "20 Jul 2026", read: "3 min read", tag: "Careers",
     img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1200&q=80",
     title: "Building a profile that assessment-first employers actually notice",
-    excerpt: "Verified badges, a current CIR and three sharp skills beat a long unverified list every time.",
+    excerpt: "A current CIR score and three sharp skills beat a long unverified list every time.",
     body: [
       "On an assessment-first platform, your profile is ranked by proof, not prose. Three verified skills with strong scores outperform a fifteen-skill list every single time.",
       "Start with the skills your target roles actually filter on — check the job page's skill chips — and take those assessments first. Re-verify anything older than six months; recency is weighted.",
@@ -56,11 +56,11 @@ export const BLOG_POSTS = [
   { slug: "anti-cheat-that-respects-candidates", date: "28 Jul 2026", read: "5 min read", tag: "Assessments",
     img: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80",
     title: "Anti-cheat that respects candidates: how verified scores stay trustworthy",
-    excerpt: "Proctoring that's transparent, proportional and privacy-first is what makes a verified badge worth showing.",
+    excerpt: "Proctoring that's transparent, proportional and privacy-first is what makes a score worth showing.",
     body: [
       "A verified score is only as valuable as the integrity behind it. But heavy-handed surveillance drives good candidates away — so our anti-cheat is built to be transparent, proportional and privacy-first.",
       "Candidates always know exactly what's monitored before starting: camera presence, tab focus and paste events during timed sections. Nothing is recorded beyond the assessment window, and flagged sessions are reviewed before any score is affected.",
-      "The result is a badge employers can rely on without candidates feeling policed. Completion rates on proctored assessments sit within two points of unproctored ones.",
+      "The result is a score employers can rely on without candidates feeling policed. Completion rates on proctored assessments sit within two points of unproctored ones.",
       "Trust is the entire product. Every design decision in the assessment experience starts from that.",
     ] },
   { slug: "campus-to-corporate", date: "31 Jul 2026", read: "4 min read", tag: "Careers",
@@ -69,7 +69,7 @@ export const BLOG_POSTS = [
     excerpt: "Without a work history, verified skill is your work history. A playbook for final-year candidates.",
     body: [
       "Freshers face a cold-start problem: every role wants experience, and experience requires a role. Verified assessments are the cleanest way out — they let you demonstrate today what a resume can only promise.",
-      "Prioritise one core skill assessment (your primary language or tool), one aptitude assessment, and one AI interview. That trio builds a CIR and three badges in under a week.",
+      "Prioritise one core skill assessment (your primary language or tool), one aptitude assessment, and one AI interview. That trio gives employers a full picture of your skills in under a week.",
       "Use campus drives on the platform strategically: employers running drives see verified candidates first, and drive-specific assessments often have direct interview slots attached.",
       "Recruiters consistently tell us the same thing: a fresher with an 85+ verified score gets read like a candidate with a year of experience.",
     ] },

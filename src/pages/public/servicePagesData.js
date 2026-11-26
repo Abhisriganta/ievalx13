@@ -23,7 +23,7 @@ export const SERVICE_PAGES = {
       { title: "Get invited", desc: "When you reach an AI interview round, it shows up in your dashboard." },
       { title: "Verify and join", desc: "A quick face check, then the interview starts by voice." },
       { title: "Talk it through", desc: "Questions come from the job description and your resume, with natural follow-ups." },
-      { title: "See your results", desc: "Your scores are ready when you finish, and the employer sees the same report." },
+      { title: "Results go to the employer", desc: "Your answers are scored as soon as you finish and shared only with the hiring team for that job." },
     ],
     blocks: [
 
@@ -46,7 +46,7 @@ export const SERVICE_PAGES = {
       "Every candidate for the job is scored on the same rubric",
       "No interviewer mood, no time-of-day bias",
       "Proctored, so honest answers aren't undercut by shortcuts",
-      "Results ready the moment you finish",
+      "Results shared only with the company you applied to",
     ],
     different:
       "Most AI interview tools read from a fixed script. iEvalX builds the conversation from the job and your resume, and it follows up like a real interviewer.",
@@ -402,7 +402,7 @@ export const SERVICE_PAGES = {
     whatItIs:
       "Verified Hiring is the trust layer of iEvalX. It protects candidates from fake postings and gives your company full control over who posts what.",
     steps: [
-      { title: "Register",          desc: "Add your company details and upload MCA, Aadhaar, PAN, MSME and GST documents." },
+      { title: "Register",          desc: "Add your company details and upload required company documents." },
       { title: "Get verified",      desc: "The iEvalX team checks each document. You can log in once verified." },
       { title: "Add your team",     desc: "Create recruiter accounts with roles. Login details are emailed to them." },
       { title: "Approve every job", desc: "Recruiter jobs go live only after company admin approval." },

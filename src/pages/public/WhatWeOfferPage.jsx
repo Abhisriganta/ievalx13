@@ -18,9 +18,9 @@ import { STEPS } from "../landing/data";
 
 const OFFERS = [
   { icon: <FactCheckOutlined />,        title: "Verified Skill Assessments",
-    desc: "Anti-cheat monitored tests that turn your skills into badges employers actually trust — proof, not claims." },
+    desc: "Proctored tests that turn your skills into scores employers actually trust — proof, not claims." },
   { icon: <SmartToyOutlined />,         title: "AI Interviews",
-    desc: "Practice or complete real screening rounds with a natural AI interviewer and get detailed feedback in minutes." },
+    desc: "Practise with an AI interviewer and get feedback on every skill, or complete real screening rounds scored for the employer." },
   { icon: <WorkspacePremiumOutlined />, title: "CIR Score",
     desc: "One shareable Candidate Intelligence Report that summarises your verified abilities across every assessment." },
   { icon: <JoinFullOutlined />,         title: "Smart Job Matching",

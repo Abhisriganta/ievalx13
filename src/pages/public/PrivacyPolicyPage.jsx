@@ -13,7 +13,7 @@ const SECTIONS = [
     ]},
   ]},
   { id: "assessment-and-proctoring", title: "Assessment & proctoring data", body: [
-    "IEvalx assessments are anti-cheat monitored so that the badges and scores you earn carry real weight. During a monitored assessment we may process your camera feed, screen activity, tab-switch events and typing patterns strictly to verify test integrity.",
+    "IEvalx assessments are anti-cheat monitored so that the scores you earn carry real weight. During a monitored assessment we may process your camera feed, screen activity, tab-switch events and typing patterns strictly to verify test integrity.",
     "Proctoring signals are analysed to flag anomalies; flagged sessions are reviewed before any score is invalidated. Raw proctoring media is retained only as long as needed for review and dispute resolution, then deleted.",
   ]},
   { id: "ai-interview-recordings", title: "AI interview recordings", body: [

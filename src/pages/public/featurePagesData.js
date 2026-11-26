@@ -14,14 +14,14 @@ export const FEATURE_PAGES = {
     eyebrow: "Quick Interview",
     title: "Ten Minutes. One Interview. A Score Every Employer Sees.",
     subtitle:
-      "A short AI voice interview built from your own resume. Finish it once, and your Candidate Intelligence Report travels with every job you apply to.",
+           "A short AI voice interview built from your own resume. Finish it once, and your CIR score travels with every job you apply to.",
     cta: { label: "Take My Quick Interview", action: "quickInterview" },
     whatItIs:
       "The Quick Interview replaces the first phone screen. An AI interviewer asks about the skills and projects on your resume, listens to your answers and scores them on the spot.",
     steps: [
       { title: "Verify it's you", desc: "A quick face check before you start, so the score is yours alone." },
       { title: "Answer by voice", desc: "About 10 minutes of questions drawn from your resume. No coding, no trick puzzles." },
-      { title: "Get your CIR", desc: "Your report is ready the moment you finish, and it's attached to your applications." },
+      { title: "Get your CIR", desc: "Your full report is ready for you the moment you finish. Employers see only your CIR score on your applications." },
     ],
     blocks: [
       {
@@ -116,7 +116,7 @@ export const FEATURE_PAGES = {
 
   /* ── Companies ───────────────────────────────────────────────────────── */
   "hiring-pipeline": {
-    eyebrow: "Hiring Pipeline",
+    eyebrow: "Interview Scheduling",
     title: "Post a Job. Design the Rounds. Let the Best Rise to the Top.",
     subtitle:
       "Build your hiring process round by round, schedule every round in one place and let candidates book their own live interview time. Every result is proctored, scored and ranked for you.",
@@ -359,7 +359,7 @@ export const FEATURE_PAGES = {
       "Employers see evidence, not just a pass/fail flag",
       "Candidates get live warnings, not silent traps",
       "Same 35+ checks whether it's one candidate or a campus batch of 500",
-      "Face and voice enrolled once, verified in every session",
+      "Identity checked at the start of every session",
       "Risk scores sit beside every result in the hiring pipeline",
     ],
     different:

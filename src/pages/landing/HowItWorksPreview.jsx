@@ -35,7 +35,7 @@ const VIEWS = {
     lead: "Five steps from finding a real job to a fair, audited interview, with your skills seen at every step.",
     steps: [
       ["Find Job", "Verified jobs only"],
-      ["Apply + IRS", "Resume scored against 100 JDs"],
+         ["Apply + IRS", "Resume matched to the job"],
       ["Assessment", "AI + coding + manual"],
       ["AI Interview", "30 min, fair and proctored"],
       ["Live Interview", "Protected by IAEM"],
@@ -48,7 +48,7 @@ const VIEWS = {
     lead: "Six steps from posting a JD to a campus-scale shortlist, with proof behind every decision.",
     steps: [
       ["Posting", "Post a job with your JD"],
-      ["Shortlisting", "IRS + CIR ranked list"],
+      ["Shortlisting", "Match + CIR score on every applicant"],
       ["Assessment", "AI + manual + coding"],
       ["AI Interview", "30 min + 35+ checks"],
       ["Live Interview", "IAEM silent watch"],
@@ -92,7 +92,7 @@ const SCENES = {
         <svg width="150" height="150" style={{ transform: "rotate(-90deg)" }}><circle cx="75" cy="75" r="48" fill="none" stroke="#EEF2EF" strokeWidth="12"/><circle className="hw-arc" cx="75" cy="75" r="48" fill="none" stroke="#7F9E7E" strokeWidth="12" strokeLinecap="round" strokeDasharray="302" strokeDashoffset="66"/></svg>
         <div style={{ position: "absolute", inset: "0", display: "grid", placeItems: "center" }}><div style={{ fontSize: "38px", fontWeight: "800", letterSpacing: "-1px" }}>78</div></div>
       </div>
-      <div className="hw-sm">vs the latest 100 Product Designer JDs</div>
+      <div className="hw-sm">vs real Product Designer JDs</div>
     </div>
     <div className="hw-hl hw-in hw-d4 hw-float" style={{ left: "600px", top: "350px", width: "300px" }}>
       <div className="hw-k">Add to get shortlisted</div>
@@ -169,7 +169,7 @@ const SCENES = {
         <button type="button" className="hw-btn hw-in hw-d3" onClick={a.onSeeker}>Get My CIR, Free →</button>
       </div>
       <div className="hw-stats">
-        <div className="hw-stat hw-in hw-d2"><b>100 JDs</b><span>Your resume scored against the latest 100 for your role</span></div>
+        <div className="hw-stat hw-in hw-d2"><b>Real JDs</b><span>Your resume checked against real job descriptions for your role</span></div>
         <div className="hw-stat hw-in hw-d3"><b>6 skills</b><span>Scored in one AI interview, in your CIR</span></div>
         <div className="hw-stat hw-in hw-d4"><b>Every</b><span>Live interviewer audited by IAEM</span></div>
       </div>
@@ -208,7 +208,7 @@ const SCENES = {
       <div className="hw-sm">for Senior Product Designer</div>
       <div className="hw-lbl" style={{ marginTop: "16px" }}>IRS + CIR filters</div>
       <div className="hw-check"><i>✓</i>JD match ≥ 90%</div>
-      <div className="hw-check" style={{ paddingTop: "0" }}><i>✓</i>Quick Interview ≥ 7.5</div>
+      <div className="hw-check" style={{ paddingTop: "0" }}><i>✓</i>Quick Interview score shown</div>
       <div className="hw-check" style={{ paddingTop: "0" }}><i>✓</i>Bengaluru · ≤ ₹24 LPA</div>
     </div>
     <div className="hw-in hw-d2" style={{ position: "absolute", left: "440px", top: "210px", fontSize: "30px", color: "var(--sage)", fontWeight: "800" }}>→</div>

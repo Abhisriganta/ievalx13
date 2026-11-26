@@ -380,10 +380,10 @@ export default function FooterSection() {
                       "Privacy Policy": "/privacy-policy", "Terms & Conditions": "/terms-and-conditions",
                       "FAQ": "/support", "Help Center": "/support",
                       "Templates": "/jobs", "Product Tour": "/categories",
-                      "AI Interviews": "/jobseeker/ai-interview",
-                      "Assessments": "/jobseeker/ai-assessments",
-                      "Job Matching": "/jobseeker/find-jobs",
-                      "Book Interview": "/jobseeker/smart-interviews/live",
+                      "AI Interviews": "/services/ai-interviews",
+                      "Assessments": "/services/assessments",
+                      "Job Matching": "/services/instant-job-matches",
+                      "Live Interview": "/services/live-interviews",
                     };
                     return (
                       <Typography

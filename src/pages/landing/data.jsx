@@ -47,7 +47,7 @@ export const STEPS = [
   { icon: <PersonAddAltOutlined sx={{ fontSize: 26 }} />, num: "01", t1: "Register",  t2: "Your Account",
     desc: "Create your free IEvalx profile with education, experience and the skills you want to prove." },
   { icon: <UploadFileOutlined sx={{ fontSize: 26 }} />,   num: "02", t1: "Upload",    t2: "Your Resume",
-    desc: "Upload your resume and take AI skill assessments to earn verified badges and a CIR score." },
+    desc: "Upload your resume to see your skill gaps, then take the Quick Interview to earn your CIR score." },
   { icon: <WorkOutlineOutlined sx={{ fontSize: 26 }} />,  num: "03", t1: "Apply",     t2: "For Dream Job",
     desc: "Get AI-matched to jobs, complete AI or live interviews and track every application in one place." },
 ];
@@ -94,13 +94,13 @@ export const ARTICLES = [
 
 export const FAQS = [
   { q: "How does the AI interview work?",
-    a: "You answer role-specific questions on camera at your own pace. Our models evaluate skill depth, clarity and problem-solving — and you get a scored report within minutes." },
+        a: "When an employer adds an AI interview round, you answer role-specific questions by voice, with natural follow-ups. Your answers are scored on six competencies and shared only with that company's hiring team." },
   { q: "What is a CIR score?",
     a: "The Candidate Intelligence Report is a verified score built from your assessments and interviews. Employers see it on your profile, so your ability speaks before your resume does." },
   { q: "Is IEvalx free for jobseekers?",
     a: "Yes — you can create your profile, take your first AI interview and apply to jobs on IEvalx for free." },
-  { q: "Can employers see my failed attempts?",
-    a: "No. Only your best verified scores are visible. Practice attempts stay private to you, always." },
+  { q: "Can employers see my practice attempts?",
+    a: "No. AI Practice Interview sessions are private to you. Employers see only your latest Quick Interview (CIR) score." },
   { q: "How do employers use the platform?",
     a: "Teams post roles, invite candidates to assessments, and track applicants through AI-scored pipelines — with every candidate arriving pre-verified." },
 ];
